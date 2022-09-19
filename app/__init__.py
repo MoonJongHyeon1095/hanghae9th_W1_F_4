@@ -1,7 +1,7 @@
 from flask import Flask
 
 def router(flask_app: Flask):
-    from .routes import book_bp, index_bp, mypage_bp, user_bp
+    from .api import book_bp, index_bp, mypage_bp, user_bp
 
     flask_app.register_blueprint(book_bp)
     flask_app.register_blueprint(index_bp)
@@ -17,7 +17,3 @@ def create_app():
     router(app)
 
     return app
-
-
-if __name__ == "__main__":
-    create_app().run(host="0.0.0.0", port=5000, debug=True)

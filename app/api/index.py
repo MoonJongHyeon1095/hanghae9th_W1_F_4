@@ -12,6 +12,6 @@ def home_page():
 
 
 # book 전체 리스트 반환
-@index_bp.route("")
+@index_bp.route("/")
 def book_list():
     return ""

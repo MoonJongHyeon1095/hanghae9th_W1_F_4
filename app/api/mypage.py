@@ -30,6 +30,6 @@ def mypage_profile_modal():
 
 
 # 프로필 수정
-@mypage_bp.route("/profile", methods="POST")
+@mypage_bp.route("/profile", methods=["POST"])
 def mypage_profile_update():
     return ""

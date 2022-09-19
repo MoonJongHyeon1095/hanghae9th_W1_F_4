@@ -12,18 +12,18 @@ def user_signup_page():
 
 
 # 회원가입 요청
-@user_bp.route("")
+@user_bp.route("/")
 def user_signup():
     return ""
 
 
 # 로그인 창         >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.
-@user_bp.route("")
+@user_bp.route("/")
 def user_signin_modal():
     return ""
 
 
 # 로그인 요청
-@user_bp.route("")
+@user_bp.route("/")
 def user_signin():
     return ""
