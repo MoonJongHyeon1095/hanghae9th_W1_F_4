@@ -1,1 +1,32 @@
-마이페이지
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
+    <title> 마이페이지 </title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="upper-wrapper" style="display:flex;flex-direction:row">
+            <div class="profile" style="display:flex;flex-direction:column">
+              <img class="my-image"/>
+              <a>닉네임</a>
+              <button onclick="mypageProfile()">프로필 수정</button>
+            </div>
+            <div class="my-reviews">내 리뷰</div>
+        </div>
+        <div class="lower-wrapper">
+            <div class="my-likes">내 찜 목록</div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
+  </body>
+</html>

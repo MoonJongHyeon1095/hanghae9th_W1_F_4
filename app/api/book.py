@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from ..config import Pymongo
 
 
@@ -27,4 +27,34 @@ def book_review_modal():
 # 리뷰 작성
 @book_bp.route("/")
 def book_review_post():
+    return ""
+
+
+# 리뷰 삭제
+@book_bp.route("/delete")
+def book_review_delete():
+    # payload = token_check()
+    # user_id = payload["user_id"]
+    # review_id = request.args.get("review_id")
+    # book_id = review_findone(review_id)["book_id"]
+
+    # ids = {
+    #     "review_id": review_id,
+    #     "user_id": user_id,
+    #     "book_id": book_id,
+    # }
+    # review_deleteone(ids)
+    
+    return ""
+
+
+# 책 좋아요
+@book_bp.route("/likes")
+def book_likes():
+    # payload = token_check()
+    # user_id = payload["user_id"]
+    # book_id = request.args.get("book_id")
+
+    # user_update_likes(user_id, book_id)
+
     return ""
