@@ -1,0 +1,57 @@
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .wrap {
+        background-color: RGBA(232, 52, 78, 0.2);
+        min-height: 100vh;
+        padding-bottom: 50px;
+    }
+
+    .banner {
+        width: 100%;
+        height: 200px;
+
+        background-color: white;
+        background-image: url('https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg');
+
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        cursor: pointer;
+    }
+
+    .tile.is-ancestor {
+        background-color: green;
+        width: 70%;
+        height: 100%;
+
+        margin: 5px auto;
+
+    }
+
+    .search_ba{
+        margin: auto;
+        padding: 15px;
+        max-width: 600px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .search_ba > button{
+        margin-left:10px;
+    }
+
+    .comment {
+        margin: 15px auto;
+    }
+
+    .container.is-max-desktop {
+        margin-bottom: 15px;
+    }
