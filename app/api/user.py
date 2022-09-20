@@ -1,10 +1,15 @@
 import hashlib
+import datetime
+import jwt
+from datetime import datetime, timedelta
 
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for
 from ..config import Pymongo
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")
 db = Pymongo.db
+
+SECRET_KEY = 'SPARTA'
 
 
 # 회원가입 페이지 렌더링
@@ -46,6 +51,24 @@ def user_signin_modal():
 
 
 # 로그인 요청
-@user_bp.route("/")
+@user_bp.route('/sign_in', methods=['POST'])
 def user_signin():
-    return ""
+
+    # 로그인
+    email_receive = request.form['email_give']
+    password_receive = request.form['password_give']
+
+    pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    result = db.users.find_one({'email': email_receive, 'password': pw_hash})
+
+    if result is not None:
+        payload = {
+         'email': email_receive,
+         'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')#.decode('utf-8')
+
+        return jsonify({'result': 'success', 'token': token})
+    # 찾지 못하면
+    else:
+        return jsonify({'result': 'fail', 'msg': '이메일/비밀번호가 일치하지 않습니다.'})

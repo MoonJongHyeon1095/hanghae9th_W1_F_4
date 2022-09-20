@@ -56,7 +56,7 @@
             $("#help-email").removeClass("is-danger").addClass("is-loading")
             $.ajax({
                 type: "POST",
-                url: "/sign_up/check_dup",
+                url: "/signup/check_dup",
                 data: {
                     email_give: email
                 },
@@ -113,7 +113,7 @@
             }
             $.ajax({
                 type: "POST",
-                url: "/sign_up/save",
+                url: "/signup/save",
                 data: {
                     email_give: email,
                     password_give: password,
