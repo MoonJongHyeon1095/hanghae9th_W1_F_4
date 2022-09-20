@@ -72,11 +72,12 @@ function mypageMyLikesList() {
 
 /** 프로필 수정 창 열기 */
 function mypageProfile() {
-    console.log("profile update")
+    console.log("profile modal")
 
     $("#section-post").load("/mypage/profile", complete=activateModal);
 }
 
+/** 프로필 모달창 is-active 클래스 부여 */
 function activateModal() {
     $("#modal-edit").addClass("is-active")
 }
@@ -84,13 +85,50 @@ function activateModal() {
 
 /** 프로필 수정 요청 */
 function mypageProfileUpdate() {
+    console.log("update profile")
     const username = $("#input-username").val();
     const password = $("#input-password").val();
     const password2 = $("#input-password2").val();
-    const image = $("#input-pic")[0].files[0];
+    const image = $("#input-image")[0].files[0];
+
+    // console.log(username, password, image)
+    let formdata = new FormData();
+    formdata.append("username", username)
+    formdata.append("password", password)
+    formdata.append("password", password2)
+    formdata.append("image", image);
+
+    for (const key of formdata.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/mypage/test",
+        data: formdata,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: (response) => {
+            console.log(response);
+        }
+    })
 
     return ;
 }
+
+// DEPRECATED
+function getInputFileName() {
+    const fileInput = document.querySelector('#file-image input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-image .file-name');
+            fileName.textContent = fileInput.files[0].name;
+            console.log(fileName)
+        }
+    }
+}
+
 
 
 /** 책 좋아요 & 해제 토글 */

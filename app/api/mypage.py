@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 from datetime import datetime
 from ..database import *
 from ..util import *
@@ -122,10 +122,21 @@ def mypage_profile_update():
     return ""
 
 
-@mypage_bp.route("/test")
+@mypage_bp.route("/test", methods=["POST"])
 def test():
-    books = list(db.reviews.find({}))
+    # payload = token_check()
+    # user_id = payload["user_id"]
+    username = request.form.get("username")
+    password = request.form.get("password")
+    password2 = request.form.get("password2")
+    file = request.files.get("image")
 
-    print(books)
+    doc = {
+        "username": username,
+        # "password": password_hash(password),
+        "image": file
+    }
+    
+    user_updateone(doc)
 
-    return ""
+    return "success"
