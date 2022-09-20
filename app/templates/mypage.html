@@ -1,32 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "base.html" %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
-    <title> 마이페이지 </title>
-  </head>
-  <body>
-    <div class="container">
-        <div class="upper-wrapper" style="display:flex;flex-direction:row">
-            <div class="profile" style="display:flex;flex-direction:column">
-              <img class="my-image"/>
-              <a>닉네임</a>
-              <button onclick="mypageProfile()">프로필 수정</button>
+{% block title %} 마이페이지 {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="upper-wrapper">
+      <div class="profile">
+        <img class="my-image" src="{{ url_for('static', filename='/profile_default.png') }}" />
+        <a>{{ user.username }}</a>
+        <button type="button" class="btn btn-outline-secondary" onclick="mypageProfile()">프로필 수정</button>
+      </div>
+      <div class="divide-line vertical"></div>
+      <div class="my-reviews" id="my-reviews">
+
+        <div class="card my-review-card">
+          <!-- <h5 class="card-title">리뷰 제목</h5> -->
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <a>책 리뷰 책 리뷰 책 리뷰 와 재미있다!!</a>
+              <footer class="blockquote-footer"><cite title="Source Title">작성자 (2022-09-20 10:53)</cite></footer>
+            </blockquote>
+          </div>
+        </div>
+        <div class="card my-review-card">
+          <!-- <h5 class="card-title">리뷰 제목</h5> -->
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <a>책 리뷰 책 리뷰 책 리뷰 와 재미있다!!</a>
+              <footer class="blockquote-footer"><cite title="Source Title">작성자 (2022-09-20 10:53)</cite></footer>
+            </blockquote>
+          </div>
+        </div>
+        <div class="card my-review-card">
+          <!-- <h5 class="card-title">리뷰 제목</h5> -->
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <a>책 리뷰 책 리뷰 책 리뷰 와 재미있다!!</a>
+              <footer class="blockquote-footer"><cite title="Source Title">작성자 (2022-09-20 10:53)</cite></footer>
+            </blockquote>
+          </div>
+        </div>
+        <div class="card my-review-card">
+          <!-- <h5 class="card-title">리뷰 제목</h5> -->
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <a>책 리뷰 책 리뷰 책 리뷰 와 재미있다!!</a>
+              <footer class="blockquote-footer"><cite title="Source Title">작성자 (2022-09-20 10:53)</cite></footer>
+            </blockquote>
+          </div>
+        </div>
+        <div class="card my-review-card">
+          <!-- <h5 class="card-title">리뷰 제목</h5> -->
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <a>책 리뷰 책 리뷰 책 리뷰 와 재미있다!!</a>
+              <footer class="blockquote-footer"><cite title="Source Title">작성자 (2022-09-20 10:53)</cite></footer>
+            </blockquote>
+          </div>
+        </div>
+
+      </div>
+  </div>
+  <div class="divide-line horizontal"></div>
+  <div class="lower-wrapper">
+      <div class="my-likes row" id="my-likes">
+
+        <div class="card my-likes-card" style="width: 18rem;">
+          <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">아몬드 (손원평 장편소설)</h5>
+            <a class="card-author">손원평</a>
+            <div class="card-publish">
+              <a class="card-publisher">창비</a>
+              <a class="card-pubdate">2022/05/12</a>
+            </div>                
+            <i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler()">10</i>
             </div>
-            <div class="my-reviews">내 리뷰</div>
         </div>
-        <div class="lower-wrapper">
-            <div class="my-likes">내 찜 목록</div>
+        <div class="card my-likes-card" style="width: 18rem;">
+          <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">아몬드 (손원평 장편소설)</h5>
+            <a class="card-author">손원평</a>
+            <div class="card-publish">
+              <a class="card-publisher">창비</a>
+              <a class="card-pubdate">2022/05/12</a>
+            </div>                
+            <i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler()">10</i>
+            </div>
         </div>
-    </div>
-    <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
-  </body>
-</html>
+        <div class="card my-likes-card" style="width: 18rem;">
+          <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">아몬드 (손원평 장편소설)</h5>
+            <a class="card-author">손원평</a>
+            <div class="card-publish">
+              <a class="card-publisher">창비</a>
+              <a class="card-pubdate">2022/05/12</a>
+            </div>                
+            <i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler()">10</i>
+            </div>
+        </div>
+        <div class="card my-likes-card" style="width: 18rem;">
+          <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">아몬드 (손원평 장편소설)</h5>
+            <a class="card-author">손원평</a>
+            <div class="card-publish">
+              <a class="card-publisher">창비</a>
+              <a class="card-pubdate">2022/05/12</a>
+            </div>                
+            <i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler()">10</i>
+            </div>
+        </div>
+        <div class="card my-likes-card" style="width: 18rem;">
+          <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">아몬드 (손원평 장편소설)</h5>
+            <a class="card-author">손원평</a>
+            <div class="card-publish">
+              <a class="card-publisher">창비</a>
+              <a class="card-pubdate">2022/05/12</a>
+            </div>                
+            <i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler()">10</i>
+            </div>
+        </div>
+        <div class="card my-likes-card" style="width: 18rem;">
+          <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">아몬드 (손원평 장편소설)</h5>
+            <a class="card-author">손원평</a>
+            <div class="card-publish">
+              <a class="card-publisher">창비</a>
+              <a class="card-pubdate">2022/05/12</a>
+            </div>                
+            <i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler()">10</i>
+            </div>
+        </div>
+
+      </div>
+  </div>
+</div>
+
+{% endblock %}

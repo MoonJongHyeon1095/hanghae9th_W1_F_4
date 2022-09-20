@@ -1,1 +1,64 @@
-프로필 수정창
+<div class="modal" id="modal-edit">
+    <div class="modal-background" onclick='$("#modal-edit").removeClass("is-active")'></div>
+    <div class="modal-content">
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="field">
+                        <label class="label" for="input-name">이름</label>
+
+                        <p class="control">
+
+                            <input id="input-name" class="input"
+                                   placeholder="홍길동" value=" ">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="input-pic">프로필 사진</label>
+
+                        <div class="control is-expanded">
+                            <div class="file has-name">
+                                <label class="file-label" style="width:100%">
+                                    <input id="input-pic" class="file-input" type="file"
+                                           name="resume">
+                                    <span class="file-cta"><span class="file-icon"><i
+                                            class="fa fa-upload"></i></span>
+                                <span class="file-label">파일 선택</span>
+                            </span>
+                                    <span id="file-name" class="file-name"
+                                          style="width:100%;max-width:100%"></span>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="textarea-about">나는 누구?</label>
+
+                        <p class="control">
+
+                        <textarea id="textarea-about" class="textarea"
+                                  placeholder="자기소개하기"></textarea>
+                        </p>
+                    </div>
+                    <nav class="level is-mobile">
+                        <div class="level-left">
+
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <a class="button is-sparta" onclick="update_profile()">업데이트</a>
+                            </div>
+                            <div class="level-item">
+                                <a class="button is-sparta is-outlined"
+                                   onclick='$("#modal-edit").removeClass("is-active")'>취소</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </article>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"
+            onclick='$("#modal-edit").removeClass("is-active")'></button>
+</div>

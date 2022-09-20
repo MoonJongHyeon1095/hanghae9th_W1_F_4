@@ -1,14 +1,18 @@
 from ..config import Pymongo
+from bson import ObjectId
 
 
 db = Pymongo.db
 
 
-def user_findone(username):
+def user_findone(user):
     """
-    db.users에서 username에 해당하는 사용자 정보 가져오기
+    db.users에서 username 혹은 user_id에 해당하는 사용자 정보 가져오기
     """
-    return ""
+    if len(user) == 24:
+        return db.users.find_one({"_id": ObjectId(user)})
+    else:
+        return db.users.find_one({"username": user})
 
 
 def user_insertone(doc):

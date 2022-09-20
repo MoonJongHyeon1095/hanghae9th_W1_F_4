@@ -5,7 +5,6 @@ from ..config import Pymongo
 book_bp = Blueprint("book", __name__, url_prefix="/book")
 db = Pymongo.db
 
-
 # 책 상세 페이지 렌더링
 @book_bp.route("/")
 def book_page():
