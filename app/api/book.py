@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, render_template, jsonify
 from ..config import Pymongo
 
 
@@ -8,13 +8,23 @@ db = Pymongo.db
 # 책 상세 페이지 렌더링
 @book_bp.route("/")
 def book_page():
-    return ""
+    # DB에서 저장된 책 찾아서 HTML에 불러오기
+    return render_template("book.html")
+
+# 해당 상세정보
+@book_bp.route("/detail/<keyword>")
+def book_detail(keyword):
+    # db에서 결과 보내기
+    bookid_receive = request.args.get("bookid_give")
+    print(bookid_receive)
+    return render_template("book.html",books=keyword)
 
 
 # 해당 책의 리뷰 리스트 반환
-@book_bp.route("/")
-def book_review_list():
-    return ""
+@book_bp.route("/list", methods=["GET"])
+def bookReview_list():
+    books = list(db.books.find({},{"_id": False}))
+    return jsonify({"books":books})
 
 
 # 리뷰 작성창         >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.

@@ -1,1 +1,163 @@
-책 상세 페이지
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/59879a4342.js" crossorigin="anonymous"></script>
+
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book.css') }}"/>
+
+    <title>detail_book</title>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+        });
+
+        function bookReview_list() {
+            $(".tile.is-ancestor").empty()
+            $.ajax({
+                type: "GET",
+                url: "/book/list",
+                data: {},
+                success: function (response) {
+
+                    let booklist = response["books"]
+                    for(let i=0; i<booklist.length;i++){
+                        let author = booklist[i]["author"]
+                        let image = booklist[i]["image"]
+                        let title = booklist[i]["title"]
+                        let pubdate = booklist[i]["pubdate"]
+                        let publisher = booklist[i]["publisher"]
+                        let discount = booklist[i]["discount"]
+                        let description = booklist[i]["description"]
+
+                        let temp_html = `<div class="tile is-4">
+                                            <div class="tile is-parent">
+                                                <article class="tile is-child notification">
+                                                    <figure class="image">
+                                                        <img class="is-rounded"
+                                                             src="${image}">
+                                                    </figure>
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <!--책정보-->
+                                        <div class="tile is-parent">
+                                            <article class="tile is-child notification ">
+                                                <div class="book_content">
+                                                    <p class="title">${title}</p>
+                                                    <p class="subtitle">${author}</p>
+                                                    <div class="content">
+                                                        <p>${pubdate}</p>
+                                                        <p>${publisher}</p>
+                                                        <p>${discount}</p>
+                                                        <p>${description}</p>
+                                                    </div>
+                                                    <div class="buttons">
+                                                        <button class="button is-primary is-light">Review</button>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>`
+                        $(".tile.is-ancestor").append(temp_html)
+                    }
+                }
+            })
+        }
+
+    </script>
+
+</head>
+
+<body>
+<!--전체 감싸기-->
+<section class="wrap">
+    <!--배너-->
+    <div class="banner" onclick="window.location.href='/'">
+    </div>
+
+    <!--검색바-->
+    <div class="search_ba">
+        <input class="input is-success" type="text" placeholder="Success input">
+        <button onclick="bookReview_list()" class="button is-primary is-light"><i class="fa fa-search"></i></button>
+    </div>
+
+    <div class="tile is-ancestor">
+        <!--이미지-->
+        <div class="tile is-4">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <figure class="image">
+                        <img class="is-rounded"
+                             src="https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg">
+                    </figure>
+                </article>
+            </div>
+        </div>
+
+
+        <!--책정보-->
+        <div class="tile is-parent">
+            <article class="tile is-child notification ">
+                <div class="book_content">
+                    <p class="title">오은영의 화해 (상처받은 내면의 ‘나’와 마주하는 용기)</p>
+                    <p class="subtitle">오은영</p>
+                    <div class="content">
+                        <p>20190110</p>
+                        <p>코리아닷컴</p>
+                        <p>14400</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus asperiores, assumenda at
+                            atque earum eius error et facere fugit iste maiores, nostrum nulla obcaecati, omnis quaerat
+                            similique voluptate voluptatem voluptates.</p>
+                    </div>
+                    <div class="buttons">
+                        <button class="button is-primary is-light">Review</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <section class="comment">
+        <div class="container is-max-desktop">
+            <div class="notification is-primary">
+                This container is <strong>fluid</strong>: it will have a 32px gap on either side, on any
+                viewport size.
+            </div>
+        </div>
+        <div class="container is-max-desktop">
+            <div class="notification is-primary">
+                This container is <strong>fluid</strong>: it will have a 32px gap on either side, on any
+                viewport size.
+            </div>
+        </div>
+        <div class="container is-max-desktop">
+            <div class="notification is-primary">
+                This container is <strong>fluid</strong>: it will have a 32px gap on either side, on any
+                viewport size.
+            </div>
+        </div>
+        <div class="container is-max-desktop">
+            <div class="notification is-primary">
+                This container is <strong>fluid</strong>: it will have a 32px gap on either side, on any
+                viewport size.
+            </div>
+        </div>
+
+    </section>
+</section>
+
+<script src="{{ url_for('static', filename='js/book.js') }}"></script>
+</body>
+</html>
