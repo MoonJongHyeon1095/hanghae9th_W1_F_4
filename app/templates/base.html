@@ -19,6 +19,9 @@
     <!-- Bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
+    <!-- custom file -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
     <!-- mypage.css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
@@ -40,7 +43,7 @@
         </ul>
     </nav>
     <div class="page">{% block content %} {% endblock %}</div>
-    <div class="modal" id="modal"></div>
+    <section id="section-post" class="section"></section>
     <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
   </body>
 </html>

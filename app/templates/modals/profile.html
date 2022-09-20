@@ -5,12 +5,28 @@
             <article class="media">
                 <div class="media-content">
                     <div class="field">
-                        <label class="label" for="input-name">이름</label>
-
+                        <label class="label" for="input-email">email</label>
                         <p class="control">
-
-                            <input id="input-name" class="input"
-                                   placeholder="홍길동" value=" ">
+                            <input id="input-email" class="input" value="{{ user.email }}" readonly>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="input-username">username</label>
+                        <p class="control">
+                            <input id="input-username" class="input"
+                                   placeholder="홍길동" value="{{ user.username }}">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="input-password">password</label>
+                        <p class="control">
+                            <input id="input-password" class="input" value="">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="input-password2">password2</label>
+                        <p class="control">
+                            <input id="input-password2" class="input" value="">
                         </p>
                     </div>
                     <div class="field">
@@ -32,7 +48,7 @@
 
                         </div>
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label class="label" for="textarea-about">나는 누구?</label>
 
                         <p class="control">
@@ -40,7 +56,7 @@
                         <textarea id="textarea-about" class="textarea"
                                   placeholder="자기소개하기"></textarea>
                         </p>
-                    </div>
+                    </div> -->
                     <nav class="level is-mobile">
                         <div class="level-left">
 

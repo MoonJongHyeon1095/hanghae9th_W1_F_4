@@ -99,7 +99,10 @@ def mypage_profile_modal():
 
     # return render_template("profile.html", user=user)
 
-    return render_template("/modals/profile.html")
+    username = "testtest"
+    user = user_findone(username)
+
+    return render_template("modals/profile.html", user=user)
 
 
 # 프로필 수정
@@ -116,4 +119,13 @@ def mypage_profile_update():
     #    "image": ""
     # }
     # 
+    return ""
+
+
+@mypage_bp.route("/test")
+def test():
+    books = list(db.reviews.find({}))
+
+    print(books)
+
     return ""

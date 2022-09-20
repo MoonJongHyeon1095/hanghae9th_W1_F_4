@@ -74,23 +74,21 @@ function mypageMyLikesList() {
 function mypageProfile() {
     console.log("profile update")
 
-    $.ajax({
-        type: "GET",
-        url: "/mypage/profile",
-        data: {},
-        success: (response) => {
-            // console.log(response)
+    $("#section-post").load("/mypage/profile", complete=activateModal);
+}
 
-            $("#modal").empty();
-            $("#modal").append(response);
-            document.getElementById("modal-edit").style.display = "block"
-        }
-    });
+function activateModal() {
+    $("#modal-edit").addClass("is-active")
 }
 
 
 /** 프로필 수정 요청 */
 function mypageProfileUpdate() {
+    const username = $("#input-username").val();
+    const password = $("#input-password").val();
+    const password2 = $("#input-password2").val();
+    const image = $("#input-pic")[0].files[0];
+
     return ;
 }
 
@@ -107,3 +105,5 @@ function bookLikesToggler(id) {
         }
     })
 }
+
+
