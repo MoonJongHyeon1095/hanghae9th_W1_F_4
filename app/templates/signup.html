@@ -52,11 +52,11 @@
             }
 
             // 3.위 1,2번 통과시
-            $("#input-email").removeclass("is-danger")
+            $("#input-email").removeClass("is-danger")
             $("#help-email").removeClass("is-danger").addClass("is-loading")
             $.ajax({
                 type: "POST",
-                url: "/signup/check_dup",
+                url: "/user/check_dup",
                 data: {
                     email_give: email
                 },
