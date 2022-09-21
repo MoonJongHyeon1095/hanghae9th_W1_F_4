@@ -3,7 +3,7 @@
 test.py
 .idea
 .env
-
+myenv
 
 __pycache__/
 *.py[cod]
