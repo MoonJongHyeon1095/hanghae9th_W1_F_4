@@ -41,9 +41,9 @@
                             <p>{{ bookView.discount }}</p>
                             <p>{{ bookView.description }}</p>
                         </div>
-                        <div class="buttons">
+                        <!-- <div class="buttons">
                             <button class="button is-primary is-light" onclick="reviewPostModal()">Review</button>
-                        </div>
+                        </div> -->
                     </div>
                 </article>
             </div>
@@ -52,20 +52,30 @@
 
         <article class="media" id="commentshow">
             <figure class="media-left">
-                <p class="image is-64x64">
+                <div class="select">
+                    <select id="review-star">
+                      <option selected>별점</option>
+                      <option value="1">⭐</option>
+                      <option value="2">⭐⭐</option>
+                      <option value="3">⭐⭐⭐</option>
+                      <option value="4">⭐⭐⭐⭐</option>
+                      <option value="5">⭐⭐⭐⭐⭐</option>
+                    </select>
+                </div>
+                <!-- <p class="image is-64x64">
                     <img src="https://bulma.io/images/placeholders/128x128.png">
-                </p>
+                </p> -->
             </figure>
             <div class="media-content">
                 <div class="field">
                     <p class="control">
-                        <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                        <textarea id="review-content" class="textarea" placeholder="Add a comment..."></textarea>
                     </p>
                 </div>
                 <nav class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <a class="button is-info">Submit</a>
+                            <a class="button is-info" onclick="reviewPostSubmit()">Submit</a>
                         </div>
                     </div>
                     <div class="level-right">

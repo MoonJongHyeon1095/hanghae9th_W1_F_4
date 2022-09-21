@@ -10,10 +10,10 @@ $(document).ready(function () {
 function reviewPostModal() {
     console.log("review modal")
 
-    $("#section-post").load("/book/postreview", complete=activateModal2)
+    $("#section-post").load("/book/postreview", complete=activateReviewModal)
 }
 
-function activateModal2(responseText, textStatus, req) {
+function activateReviewModal(responseText, textStatus, req) {
     if (textStatus == "error") {
         alert("로그인을 먼저 해주세요")
     }
@@ -28,12 +28,13 @@ function reviewPostSubmit() {
         "content": $("#review-content").val(),
         "star": $("#review-star").val(),
     }
+    console.log(data)
     $.ajax({
         type: "POST",
         url: "/book/postreview",
         data: data,
         success: (response) => {
-            $("#modal-edit").removeClass("is-active");
+            // $("#modal-edit").removeClass("is-active");
             alert("리뷰를 등록했습니다");
             window.location.reload();
         },
@@ -44,6 +45,8 @@ function reviewPostSubmit() {
 }
 
 function bookReview_list() {
+    // location.href에 여기 필요한게 있어요
+    // 그걸 받으셔서 url에 쿼리스트링의 형태로 서버에 보내주세요
     $.ajax({
         type: 'GET',
         url: '/book/review',

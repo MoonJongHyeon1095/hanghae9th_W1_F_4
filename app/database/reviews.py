@@ -5,7 +5,6 @@ from ..config import Pymongo
 db = Pymongo.db
 
 
-
 def review_findone(_id):
     """
     db.reviews에서 review_id로 검색

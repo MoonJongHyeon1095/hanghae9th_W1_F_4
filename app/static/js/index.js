@@ -1,3 +1,5 @@
+const PATH = document.location.pathname;
+
 
 $(document).ready(function () {
     book_list()

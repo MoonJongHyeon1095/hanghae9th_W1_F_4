@@ -23,8 +23,13 @@ def book_detail():
 
 
 # 해당 책의 리뷰 리스트 반환
-@book_bp.route("/list")
+@book_bp.route("/review")
 def bookReview_list():
+    # request.args[" "]를 사용하면 쿼리스트링으로 받은 데이터를 가져올 수 있어요.
+
+    # isbn으로 book 검색 
+    # book["reviews"]로 리뷰 id 리스트 받기
+    # 각각 리뷰id로 리뷰 데이터 받아오기
     books = list(db.books.find({},{"_id": False}))
     return jsonify({"books":books})
 

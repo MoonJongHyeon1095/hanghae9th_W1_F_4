@@ -1,4 +1,4 @@
-const PATH = document.location.pathname;
+
 
 $(()=>{
     renderMypageContents();    
@@ -14,7 +14,6 @@ function navToMypage() {
         }
     })
 }
-
 
 function renderMypageContents() {
     if (PATH === "/mypage/") {
@@ -113,6 +112,7 @@ function mypageProfile() {
     });
 }
 
+
 /** 프로필 모달창 is-active 클래스 부여 */
 function activateModal() {
     console.log("!!!")
@@ -150,6 +150,7 @@ function mypageProfileUpdate() {
             console.log(response);
             $("#modal-edit").removeClass("is-active")
             alert(response)
+            location.reload();
         }
     })
 

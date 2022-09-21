@@ -63,6 +63,14 @@
     padding: 0px 10px 10px 10px;
 }
 
+.upper-wrapper > .my-reviews > h1 {
+    /* border: 1px solid red; */
+
+    margin: 20% 0px 20% 0px;
+    text-align: center;
+    font-size: 2em;
+}
+
 .upper-wrapper > .my-reviews > .my-review-card {
     /* border: 1px solid red; */
 
@@ -112,6 +120,14 @@
     flex-direction: row;
     justify-content: center;
     padding: 10px 0px 10px 10px;
+}
+
+.my-likes > h1 {
+    /* border: 1px solid red; */
+
+    margin: 10% 0px 20% 0px;
+    text-align: center;
+    font-size: 2em;
 }
 
 .my-likes > .my-likes-card {
