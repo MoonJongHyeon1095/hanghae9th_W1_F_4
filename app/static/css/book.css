@@ -5,31 +5,19 @@
     }
 
     .wrap {
-        background-color: RGBA(232, 52, 78, 0.2);
+        background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
         min-height: 100vh;
         padding-bottom: 50px;
     }
 
-    .banner {
-        width: 100%;
-        height: 200px;
-
-        background-color: white;
-        background-image: url('https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg');
-
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-
-        cursor: pointer;
-    }
     .tile{
+
         align-items: center;
 
     }
 
     .tile.is-ancestor {
-        background-color: green;
+
         width: 70%;
         height: 100%;
 
@@ -60,9 +48,11 @@
         margin-bottom: 15px;
     }
 
-
-
-    hr{
-        min-width: 90%;
-        border: 1px solid #8d5656;
+    #review_commentbox {
+        width: 500px;
     }
+
+    .hidden{
+        display: none;
+    }
+

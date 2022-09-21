@@ -16,17 +16,23 @@ def book_page():
 def book_detail():
     # db에서 결과 보내기
     bookid_receive = request.args.get("book_id")
-    bookView = list(db.books.find({"isbn":bookid_receive},{"_id": False}))[0]
-    return render_template("book.html", bookView=bookView)
-
-
+    bookView = list(db.books.find({"isbn":bookid_receive}))[0]
+    book_id = bookView["_id"]
+    return render_template("book.html", bookView=bookView, book_id=book_id)
 
 
 # 해당 책의 리뷰 리스트 반환
 @book_bp.route("/list", methods=["GET"])
-def bookReview_list():
+def book_list():
     books = list(db.books.find({},{"_id": False}))
     return jsonify({"books":books})
+
+
+@book_bp.route("/review", methods=["GET"])
+def bookReview_list():
+    reviews = list(db.reviews.find({},{"_id": False}))
+    return jsonify({"reviews":reviews})
+
 
 # 리뷰 작성창     >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.
 @book_bp.route("/")
