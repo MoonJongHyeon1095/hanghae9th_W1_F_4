@@ -23,6 +23,10 @@
 
         cursor: pointer;
     }
+    .tile{
+        align-items: center;
+
+    }
 
     .tile.is-ancestor {
         background-color: green;
@@ -54,4 +58,11 @@
 
     .container.is-max-desktop {
         margin-bottom: 15px;
+    }
+
+
+
+    hr{
+        min-width: 90%;
+        border: 1px solid #8d5656;
     }

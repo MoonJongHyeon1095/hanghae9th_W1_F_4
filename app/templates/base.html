@@ -25,6 +25,7 @@
     <!-- mypage.css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
 
     <!-- title -->
     <title> {% block title %} {% endblock %} </title>
@@ -43,7 +44,9 @@
         </ul>
     </nav>
     <div class="page">{% block content %} {% endblock %}</div>
-    <section id="section-post" class="section"></section>
+
     <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/book.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
   </body>
 </html>

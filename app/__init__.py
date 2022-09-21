@@ -12,7 +12,8 @@ def router(flask_app: Flask):
 def create_app():
     app = Flask(__name__)
     app.config.update(
-        SECRET_KEY="hanghaeF4"
+        SECRET_KEY="hanghaeF4",
+        DEBUG=True
     )
     router(app)
 
