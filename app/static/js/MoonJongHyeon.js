@@ -1,4 +1,13 @@
-<!-- 로그인 페이지 (signin.html) 함수 -->
+// <!-- 로그인 페이지 (signin.html) 함수 -->
+
+
+function test() {
+    console.log("!!!")
+
+    // fetch("/user/sign_in")
+    $('#section-post').load("/user/sign_in", complete=activateModal )
+}
+
 
 function activateModal() {
     $("#modal-post").addClass("is-active")
@@ -42,7 +51,7 @@ function sign_in() {
 }
 
 
-<!-- 회원가입 페이지(signup.html) 함수 -->
+// <!-- 회원가입 페이지(signup.html) 함수 -->
 
 function is_email(asValue) {
     const regExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block title %} {% endblock %}
+
+
+{% block content %}
+<nav class="header">
+    <div class="logo">
+        <a href="/">
+            <img src="{{ url_for('static', filename='title.png') }}" />
+        </a>
+    </div>
+    <ul class="menu">
+        <li><a href="/mypage">마이페이지</a></li>
+        <!-- <li><a onclick="navToMypage()">마이페이지</a></li> -->
+        <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li>
+        <li><a href="/user/sign_up">회원가입</a></li>
+    </ul>
+</nav>
+<div class="page">{% block main %} {% endblock %}</div>
+
+{% endblock %}

@@ -4,6 +4,17 @@ $(()=>{
     renderMypageContents();    
 });
 
+function navToMypage() {
+    $.ajax({
+        type: "GET",
+        url: "/mypage/nav",
+        data: {},
+        success: (response) => {
+            console.log("success")
+        }
+    })
+}
+
 
 function renderMypageContents() {
     if (PATH === "/mypage/") {
@@ -18,22 +29,27 @@ function mypageMyReviewList() {
         type: "GET",
         url: "/mypage/reviews",
         data: {},
-        success: (response) => {
-            const reviews = response.reviews;
+        success: ({ reviews }) => {
             
-            $("#my-reviews").empty();
-            reviews.map( (review) => {
-                const card = `
-              <div class="card my-review-card">
-                <div class="card-body">
-                  <blockquote class="blockquote mb-0">
-                    <a>${review.content}</a>
-                    <footer class="blockquote-footer"><cite title="Source Title">${review.username} (${review.time})</cite></footer>
-                  </blockquote>
-                </div>
-              </div>`;
+            if(reviews.length !== 0) {
+                $("#my-reviews").empty();
+                reviews.map( (review) => {
+                    const card = `
+                <div class="card my-review-card">
+                    <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <a>${review.content}</a>
+                        <footer class="blockquote-footer"><cite title="Source Title">${review.username} (${review.time})</cite></footer>
+                    </blockquote>
+                    </div>
+                </div>`;
+                    $("#my-reviews").append(card);
+                });
+            } else if(reviews.length === 0) {
+                $("#my-reviews").empty();
+                const card = `<h1>작성한 리뷰가 없습니다</h1>`
                 $("#my-reviews").append(card);
-            });
+            }
         }
     });
     return ;
@@ -47,31 +63,38 @@ function mypageMyLikesList() {
         url: "/mypage/likes",
         data: {},
         success: ({ books }) => {
-            console.log(books)
 
-            $("#my-likes").empty();
-            books.map( (book) => {
-                let card = `            <div class="card my-likes-card" style="width: 18rem;">
-                <img src=${book.image} class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">${book.title}</h5>
-                  <a class="card-author">${book.author}</a>
-                  <div class="card-publish">
-                    <a class="card-publisher">${book.publisher}</a>
-                    <a class="card-pubdate">${book.pubdate}</a>
-                  </div>`
-                if (book.flag) {
-                    card += `<i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler('${book._id}')">${book.likes.length}</i>
-                    </div>
-                </div>`;
-                } else {
-                    card += `<i class="bi bi-hand-thumbs-up" onclick="bookLikesToggler('${book._id}')">${book.likes.length}</i>
-                    </div>
-                </div>`;
-                }
-                  
+            if(books.length !== 0) {
+                $("#my-likes").empty();
+                books.map( (book) => {
+                    let card = `            <div class="card my-likes-card" style="width: 18rem;">
+                    <img src=${book.image} class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">${book.title}</h5>
+                    <a class="card-author">${book.author}</a>
+                    <div class="card-publish">
+                        <a class="card-publisher">${book.publisher}</a>
+                        <a class="card-pubdate">${book.pubdate}</a>
+                    </div>`
+                    if (book.flag) {
+                        card += `<i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler('${book._id}')">${book.likes.length}</i>
+                        </div>
+                    </div>`;
+                    } else {
+                        card += `<i class="bi bi-hand-thumbs-up" onclick="bookLikesToggler('${book._id}')">${book.likes.length}</i>
+                        </div>
+                    </div>`;
+                    }
+                    
+                    $("#my-likes").append(card);
+                });
+            } else if(books.length === 0) {
+                $("#my-likes").empty();
+                const card = `<h1>좋아하는 책에 <i class="bi bi-hand-thumbs-up" style="color:red" onclick="bookLikesToggler()"></i>를 눌러주세요.</h1>`
                 $("#my-likes").append(card);
-            });
+            }
+
+            
         }
     })
     return ;

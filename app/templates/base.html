@@ -27,24 +27,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}" />
 
     <!-- title -->
     <title> {% block title %} {% endblock %} </title>
   </head>
   <body>
-    <nav class="header">
-        <div class="logo">
-            <a href="/">
-                <img src="{{ url_for('static', filename='title.png') }}" />
-            </a>
-        </div>
-        <ul class="menu">
-            <li><a href="/mypage">마이페이지</a></li>
-            <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li>
-            <li><a href="/user/sign_up">회원가입</a></li>
-        </ul>
-    </nav>
-    <div class="page">{% block content %} {% endblock %}</div>
+    {% block content %} {% endblock %}
     <section id="section-post" class="section"></section>
 
     <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>

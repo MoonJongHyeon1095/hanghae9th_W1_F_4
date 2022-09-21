@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request
+from flask import Blueprint, render_template, jsonify, request, session, redirect
 from datetime import datetime
 from ..database import *
 from ..util import *
@@ -13,10 +13,21 @@ mypage_bp = Blueprint("mypage", __name__, url_prefix="/mypage")
 @mypage_bp.route("/")
 def mypage_page():
     payload = token_check()
-    user_id = payload["user_id"]
-    user = user_findone(user_id)
+    if payload is not None:
+        user_id = payload["user_id"]
+        user = user_findone(user_id)
+        session["login"] = "true"
 
-    return render_template("mypage.html", user=user)
+        return render_template("mypage.html", user=user)
+    else:
+        session["login"] = "false"
+        return redirect("/")
+
+
+@mypage_bp.route("/401")
+def mypage_nav():
+    print("this is nav")
+    return render_template("401.html")
 
 
 
@@ -49,7 +60,7 @@ def mypage_likes_list():
 
     result = []
     for b_id in book_ids:
-        book = book_findone(b_id)
+        book = book_findone_id(b_id)
         book["_id"] = b_id
         book["flag"] = True if user_id in book["likes"] else False
         result.append(book)

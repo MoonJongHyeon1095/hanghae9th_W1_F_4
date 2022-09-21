@@ -1,12 +1,8 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
 
 {% block title %} 마이페이지 {% endblock %}
 
-{% block content %}{% extends "base.html" %}
-
-{% block title %} 마이페이지 {% endblock %}
-
-{% block content %}
+{% block main %}
 <div class="container">
   <div class="upper-wrapper">
       <div class="profile">
@@ -63,7 +59,7 @@
   <div class="divide-line horizontal"></div>
   <div class="lower-wrapper">
       <div class="my-likes row" id="my-likes">
-
+        
         <!-- <div class="card my-likes-card" style="width: 18rem;">
           <img src="https://shopping-phinf.pstatic.net/main_3246229/32462294729.20220527030642.jpg" class="card-img-top" alt="...">
           <div class="card-body">
