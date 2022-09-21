@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
 from ..config import Pymongo
 
 index_bp = Blueprint("index", __name__)
@@ -12,6 +12,7 @@ def home_page():
 
 
 # book 전체 리스트 반환
-@index_bp.route("/")
+@index_bp.route("/book/list")
 def book_list():
-    return ""
+    book_list = db.books.find({},{"_id":False})
+    return jsonify({'book_list':book_list})
