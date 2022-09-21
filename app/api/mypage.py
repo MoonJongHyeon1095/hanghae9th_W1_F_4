@@ -3,8 +3,6 @@ from datetime import datetime
 from ..database import *
 from ..util import *
 
-from ..config import Pymongo
-db = Pymongo.db
 
 mypage_bp = Blueprint("mypage", __name__, url_prefix="/mypage")
 
@@ -82,20 +80,20 @@ def mypage_profile_modal():
 @mypage_bp.route("/profile", methods=["POST"])
 def mypage_profile_update():
     payload = token_check()
-    user_id = payload["user_id"]
 
     doc = {
-       "_id": user_id,
        "email": payload["email"],
        "username": request.form.get("username"),
        "password": password_hash(request.form.get("password")),
        "image": request.files.get("image"),
     }
     user_id = user_upsertone(doc)
-    print(doc)
-    print(user_id)
 
-    return "회원 정보를 수정했습니다."
+    user = user_findone(str(user_id))
+    token = create_token(user)
+
+    session.clear()
+    return jsonify({ "msg": "회원 정보를 수정했습니다.", "mytoken": token })
 
 
 
@@ -107,20 +105,3 @@ def testsignin():
     token = create_token(user)
 
     return jsonify({ "token": token })
-
-
-
-@mypage_bp.route("/test")
-def test():
-    payload = token_check()
-
-    doc = {
-        # "_id": payload["user_id"],
-        "email": "sparta@hanghae.com",
-        "username": "whoami",
-        "password": password_hash("qwe123123"),
-    }
-    user_id = user_upsertone(doc)
-    print(user_id)
-
-    return "success"

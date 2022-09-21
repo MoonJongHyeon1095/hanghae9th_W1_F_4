@@ -1,15 +1,11 @@
 // <!-- 로그인 페이지 (signin.html) 함수 -->
 
-function activateModal() {
-    $("#modal-post").addClass("is-active")
-}
-
 function signout() {
     $.removeCookie('mytoken', {path: '/'});
     window.location.replace("/")
 }
 
-function siginModalPop() {
+function signinModalPop() {
     $('#section-post').load('/user/sign_in', complete=activateModal )
 }
 

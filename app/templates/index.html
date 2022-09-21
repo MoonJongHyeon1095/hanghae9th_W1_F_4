@@ -4,9 +4,10 @@
 
 {% block main %}
     <script>
-        const flag = JSON.parse("{{flag}}")
-        console.log(flag, typeof(flag))
-        if(flag==false) alert("로그인을 먼저 해주세요!")
+        if ("{{flag}}") {
+            const flag = JSON.parse("{{flag}}")
+            if(flag==false) alert("로그인을 먼저 해주세요!")
+        }
     </script>
 
 

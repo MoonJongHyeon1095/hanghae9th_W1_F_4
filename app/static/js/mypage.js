@@ -1,8 +1,11 @@
 
 
-$(()=>{
-    renderMypageContents();    
-});
+
+/** mypage.html 로드되고 나서 바로 실행해야하는 함수 여기에 넣어주세요. */
+function renderMypageContents() {
+    mypageMyReviewList();
+    mypageMyLikesList();
+}
 
 function navToMypage() {
     $.ajax({
@@ -12,14 +15,7 @@ function navToMypage() {
         success: (response) => {
             console.log("success")
         }
-    })
-}
-
-function renderMypageContents() {
-    if (PATH === "/mypage/") {
-        mypageMyReviewList();
-        mypageMyLikesList();
-    }
+    });
 }
 
 /** 마이페이지 내가 작성한 리뷰 리스트 */
@@ -76,11 +72,11 @@ function mypageMyLikesList() {
                         <a class="card-pubdate">${book.pubdate}</a>
                     </div>`
                     if (book.flag) {
-                        card += `<i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler('${book._id}')">${book.likes.length}</i>
+                        card += `<i class="bi bi-hand-thumbs-up-fill" onclick="bookLikesToggler('${book._id}', ${book.flag})">${book.likes.length}</i>
                         </div>
                     </div>`;
                     } else {
-                        card += `<i class="bi bi-hand-thumbs-up" onclick="bookLikesToggler('${book._id}')">${book.likes.length}</i>
+                        card += `<i class="bi bi-hand-thumbs-up" onclick="bookLikesToggler('${book._id}', ${book.flag})">${book.likes.length}</i>
                         </div>
                     </div>`;
                     }
@@ -89,7 +85,7 @@ function mypageMyLikesList() {
                 });
             } else if(books.length === 0) {
                 $("#my-likes").empty();
-                const card = `<h1>좋아하는 책에 <i class="bi bi-hand-thumbs-up" style="color:red" onclick="bookLikesToggler()"></i>를 눌러주세요.</h1>`
+                const card = `<h1>좋아하는 책에 <i class="bi bi-hand-thumbs-up" style="color:rgba(255, 95, 95, 0.781)"></i>를 눌러주세요.</h1>`
                 $("#my-likes").append(card);
             }
 
@@ -105,18 +101,11 @@ function mypageMyLikesList() {
 function mypageProfile() {
     console.log("profile modal")
 
-    // $("#section-post").load("/mypage/profile", complete=activateModal)
+    $("#section-post").load("/mypage/profile", complete=activateModal);
 
-    $("#section-post").load("/mypage/profile", (responseText, textStatus, req)=>{
-        if (textStatus === "success") $("#modal-edit").addClass("is-active")
-    });
-}
-
-
-/** 프로필 모달창 is-active 클래스 부여 */
-function activateModal() {
-    console.log("!!!")
-    $("#modal-edit").addClass("is-active")
+    // $("#section-post").load("/mypage/profile", (responseText, textStatus, req)=>{
+    //     if (textStatus === "success") $("#modal-pop").addClass("is-active")
+    // });
 }
 
 
@@ -146,31 +135,38 @@ function mypageProfileUpdate() {
         cache: false,
         contentType: false,
         processData: false,
-        success: (response) => {
-            console.log(response);
+        success: ({ msg, mytoken }) => {
+            console.log(msg);
+            $.cookie("mytoken", mytoken, {path: "/"});
             $("#modal-edit").removeClass("is-active")
-            alert(response)
+            alert(msg)
             location.reload();
         }
-    })
-
-    return ;
+    });
 }
 
 
-
-
 /** 책 좋아요 & 해제 토글 */
-function bookLikesToggler(id) {
+function bookLikesToggler(id, flag) {
     console.log(id)
     $.ajax({
         type: "GET",
-        url: "/book/likes?book_id=" + id,
+        url: `/book/likes?book_id=${id}&flag=${flag}`,
         data: {},
-        success: (response) => {
-            mypageMyLikesList();
+        success: () => {
+            switch (PATH) {  
+                case "/mypage/":
+                    renderMypageContents()
+                    break;
+                case "/book/view/":
+                    location.reload()
+                    break;
+            }
+        },
+        error: ()=>{
+            alert("로그인을 먼저 해주세요.")
         }
-    })
+    });
 }
 
 
@@ -181,32 +177,7 @@ function getInputFileName() {
         if (fileInput.files.length > 0) {
             const fileName = document.querySelector('#file-image .file-name');
             fileName.textContent = fileInput.files[0].name;
-            console.log(fileName)
+            console.log(fileName);
         }
     }
-}
-
-
-function testlogin() {
-    $.ajax({
-        type: "GET",
-        url: "/mypage/signin",
-        data: {},
-        success: (response) => {
-            $.cookie('mytoken', response['token'], {path: '/'});
-            window.location.replace(PATH)
-        }
-    })
-
-}
-
-function test() {
-    $.ajax({
-        type: "GET",
-        url: "/mypage/test",
-        data: {},
-        success: (response) => {
-            console.log(response)
-        }
-    })
 }

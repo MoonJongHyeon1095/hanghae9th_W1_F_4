@@ -1,7 +1,6 @@
 from bson import ObjectId
 from ..config import Pymongo
 
-
 db = Pymongo.db
 
 
@@ -18,12 +17,18 @@ def review_find():
     """
     return ""
 
-def review_upsertone(doc):
+
+def review_insertone(doc):
     """
     db.reviews에 전달받은 데이터 삽입
     """
-    id = doc["_id"] if "_id" in doc else None
-    return db.reviews.update_one({"_id": ObjectId(id)}, {"$set": doc}, upsert=True).upserted_id
+    review_id = db.reviews.insert_one(doc).inserted_id
+    print(doc["username"], doc["book_id"])
+
+    db.users.update_one({"username": doc["username"]}, {"$push": {"reviews": str(review_id)}})
+    db.books.update_one({"_id": ObjectId(doc["book_id"])}, {"$push": {"reviews": str(review_id)}})
+
+    return review_id
 
 
 def review_deleteone(ids):

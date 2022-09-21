@@ -1,14 +1,9 @@
 from flask import request
-from dotenv import load_dotenv
 from datetime import datetime, timedelta
 import hashlib
 import jwt
-import os
 
-load_dotenv()
-
-KEY = os.environ.get("SECRET_KEY")
-
+from ..config import *
 
 
 def password_hash(password):
@@ -37,7 +32,7 @@ def create_token(user):
 
 def token_check():
     """
-    현재 세션의 로그인 토큰 유효성 확인 이후 payload 반환
+    현재 세션의 로그인 토큰 유효성 확인 이후 payload 혹은 None 반환
     """
     print("token check")
     token = request.cookies.get("mytoken")

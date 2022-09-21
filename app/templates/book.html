@@ -18,7 +18,7 @@
 
         <div class="tile is-ancestor">
             <!--이미지-->
-            <div class="tile is-4">
+            <div class="tile is-4" style="flex-direction: column;">
                 <div class="tile is-parent">
                     <article class="tile is-child notification">
                         <figure class="image">
@@ -27,6 +27,13 @@
                         </figure>
                     </article>
                 </div>
+                {% if bookView.flag == True %}
+                <i class="bi bi-hand-thumbs-up-fill" style="color:rgba(255, 95, 95, 0.781);font-size: 2em;cursor:pointer"
+                    id="book-thumb" onclick="bookLikesToggler('{{ bookView._id }}', '{{ bookView.flag }}')">{{ bookView.likes }}</i>
+                {% else %}
+                <i class="bi bi-hand-thumbs-up" style="color:rgba(255, 95, 95, 0.781);font-size: 2em;cursor:pointer"
+                    id="book-thumb" onclick="bookLikesToggler('{{ bookView._id }}', '{{ bookView.flag }}')">{{ bookView.likes }}</i>
+                {% endif %}
             </div>
             <!--책정보-->
             <div class="tile is-parent">

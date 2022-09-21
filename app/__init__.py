@@ -1,4 +1,5 @@
 from flask import Flask
+from .config import *
 
 def router(flask_app: Flask):
     from .api import book_bp, index_bp, mypage_bp, user_bp
@@ -12,7 +13,7 @@ def router(flask_app: Flask):
 def create_app():
     app = Flask(__name__)
     app.config.update(
-        SECRET_KEY="hanghaeF4",
+        SECRET_KEY=SSN,
         DEBUG=True
     )
     router(app)

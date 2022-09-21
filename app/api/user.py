@@ -1,20 +1,13 @@
-import hashlib
-import datetime
-import jwt
-from datetime import datetime, timedelta
-
 from flask import Blueprint, render_template, jsonify, request, session
+from datetime import datetime, timedelta
+import jwt
 
-from dotenv import load_dotenv
-
+from ..config import *
+from ..database import *
 from ..util import *
-from ..config import Pymongo
+
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")
-db = Pymongo.db
-
-load_dotenv()
-ABC = os.environ.get("SECRET_KEY")
 
 
 # 회원가입 페이지 렌더링
@@ -29,7 +22,7 @@ def user_signup_page():
 @user_bp.route('/check_dup', methods=['POST'])
 def check_dup():
     email_receive = request.form['email_give']
-    exists = bool(db.users.find_one({"email": email_receive}))
+    exists = bool(user_findone_email(email_receive))
     return jsonify({'result': 'success', 'exists': exists})
 
 
@@ -39,17 +32,17 @@ def user_signup():
     email_receive = request.form['email_give']
     password_receive = request.form['password_give']
     username_receive = request.form['username_give']
-    password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
 
     doc = {
         "email": email_receive,  # 로그인 아이디
-        "password": password_hash,  # 비밀번호
+        "password": password_hash(password_receive),  # 비밀번호
         "username": username_receive,  # 서비스 내 표시되는 사용자의 이름
         "likes": [],
         "reviews": [],
     }
 
-    db.users.insert_one(doc)
+    user_id = user_upsertone(doc)
+    print(user_id)
 
     return jsonify({'result': 'success'})
 
@@ -77,7 +70,7 @@ def user_signin():
          'email': email_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
         }
-        token = jwt.encode(payload, ABC, algorithm='HS256')#.decode('utf-8')
+        token = jwt.encode(payload, KEY, algorithm='HS256')#.decode('utf-8')
         # token = create_token(user)
         session.clear()
         return jsonify({'result': 'success', 'token': token})

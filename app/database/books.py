@@ -1,9 +1,7 @@
 from bson import ObjectId
 from ..config import Pymongo
 
-
 db = Pymongo.db
-
 
 
 def book_findone_id(_id):
@@ -15,16 +13,16 @@ def book_findone_id(_id):
 
 def book_findone_isbn(isbn):
     """
-    db.books에서 _id에 해당하는 책 정보 가져오기
+    db.books에서 isbn에 해당하는 책 정보 가져오기
     """
     return db.books.find_one({"isbn": isbn})
 
 
-def book_find():
+def book_findall():
     """
     db.books에서 전체 책 리스트 가져오기
     """
-    return db.books.find({})
+    return list(db.books.find({}, {"_id": False}))
 
 
 def book_insertone(doc):

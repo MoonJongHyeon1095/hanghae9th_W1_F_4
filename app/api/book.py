@@ -1,23 +1,30 @@
 from flask import Blueprint, request, render_template, jsonify, abort
 import time
 
-from ..config import Pymongo
 from ..database import *
 from ..util import *
 
 
-book_bp = Blueprint("book", __name__, url_prefix="/book")
+from ..config import Pymongo
 db = Pymongo.db
 
-# 책 상세 페이지 렌더링
+
+book_bp = Blueprint("book", __name__, url_prefix="/book")
+
+
 @book_bp.route("/view/")
 def book_detail():
-    # db에서 결과 보내기
-    checked_token = token_check()
-    token_info = bool(checked_token)
+    """
+    책 상세 페이지 렌더링
+    """
+    payload = token_check()
+    token_info = bool(payload)
     
-    bookid_receive = request.args.get("book_id")
-    bookView = list(db.books.find({"isbn":bookid_receive},{"_id": False}))[0]
+    isbn = request.args.get("book_id")
+    bookView = book_findone_isbn(isbn)
+    bookView["_id"] = str(bookView["_id"])
+    bookView["flag"] = True if payload["user_id"] in bookView["likes"] else False
+    bookView["likes"] = len(bookView["likes"])
     
     return render_template("book.html", bookView=bookView, token_info=token_info)
 
@@ -34,18 +41,23 @@ def bookReview_list():
     return jsonify({"books":books})
 
 
-# 리뷰 작성창
+# DEPRECATED
 @book_bp.route("/postreview")
 def book_review_modal():
+    """
+    리뷰 작성 모달 팝업
+    """
     payload = token_check()
     if payload is None:
         abort(401)
     return render_template("/modals/review.html")
 
 
-# 리뷰 작성
 @book_bp.route("/postreview", methods=["POST"])
 def book_review_post():
+    """
+    리뷰 작성
+    """
     payload = token_check()
     if payload is None:
         abort(401)
@@ -54,16 +66,13 @@ def book_review_post():
     book = book_findone_isbn(isbn)
 
     doc = {
-        "username": payload["username"],
         "book_id": str(book["_id"]),
+        "username": payload["username"],
         "content": request.form["content"],
         "rating": int(request.form["star"]),
         "time": int(time.time()),
     }
-    review_id = str(review_upsertone(doc))
-
-    db.users.update_one({"username": doc["username"]}, {"$push": {"reviews": review_id}})
-    db.books.update_one({"isbn": isbn}, {"$push": {"reviews": review_id}})
+    review_id = review_insertone(doc)
     
     return "success"
 
@@ -86,13 +95,19 @@ def book_review_delete():
     return ""
 
 
-# 책 좋아요
 @book_bp.route("/likes")
 def book_likes():
-    # payload = token_check()
-    # user_id = payload["user_id"]
-    # book_id = request.args.get("book_id")
+    """
+    : 책 좋아요 토글링.
+    : 쿼리스트링 book_id(:str), flag(:str, true|True 나머지는 false 취급)
+    """
+    payload = token_check()
+    if payload is None:
+        abort(401)
+    user_id = payload["user_id"]
+    book_id = request.args.get("book_id")
+    flag = bool(request.args.get("flag")=="True" or request.args.get("flag")=="true")
+    print(flag, type(flag))
 
-    # user_update_likes(user_id, book_id)
-
-    return ""
+    pull_likes(user_id, book_id) if flag else push_likes(user_id, book_id) 
+    return "success"
