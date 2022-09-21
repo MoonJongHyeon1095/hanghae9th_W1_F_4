@@ -10,7 +10,7 @@ def review_findone(_id):
     """
     db.reviews에서 review_id로 검색
     """
-    return ""
+    return db.reviews.find_one({"_id": ObjectId(_id)})
 
 
 def review_find():

@@ -1,8 +1,16 @@
+const PATH = document.location.pathname;
+
 $(()=>{
-    mypageMyReviewList();
-    mypageMyLikesList();
+    renderMypageContents();    
 });
 
+
+function renderMypageContents() {
+    if (PATH === "/mypage/") {
+        mypageMyReviewList();
+        mypageMyLikesList();
+    }
+}
 
 /** 마이페이지 내가 작성한 리뷰 리스트 */
 function mypageMyReviewList() {
@@ -104,7 +112,7 @@ function mypageProfileUpdate() {
 
     $.ajax({
         type: "POST",
-        url: "/mypage/test",
+        url: "/mypage/profile",
         data: formdata,
         cache: false,
         contentType: false,
@@ -116,19 +124,6 @@ function mypageProfileUpdate() {
 
     return ;
 }
-
-// DEPRECATED
-function getInputFileName() {
-    const fileInput = document.querySelector('#file-image input[type=file]');
-    fileInput.onchange = () => {
-        if (fileInput.files.length > 0) {
-            const fileName = document.querySelector('#file-image .file-name');
-            fileName.textContent = fileInput.files[0].name;
-            console.log(fileName)
-        }
-    }
-}
-
 
 
 /** 책 좋아요 & 해제 토글 */
@@ -145,3 +140,39 @@ function bookLikesToggler(id) {
 }
 
 
+// DEPRECATED
+function getInputFileName() {
+    const fileInput = document.querySelector('#file-image input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-image .file-name');
+            fileName.textContent = fileInput.files[0].name;
+            console.log(fileName)
+        }
+    }
+}
+
+
+function testlogin() {
+    $.ajax({
+        type: "GET",
+        url: "/mypage/signin",
+        data: {},
+        success: (response) => {
+            $.cookie('mytoken', response['token'], {path: '/'});
+            window.location.replace(PATH)
+        }
+    })
+
+}
+
+function test() {
+    $.ajax({
+        type: "GET",
+        url: "/mypage/test",
+        data: {},
+        success: (response) => {
+            console.log(response)
+        }
+    })
+}

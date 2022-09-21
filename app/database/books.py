@@ -10,7 +10,7 @@ def book_findone(_id):
     """
     db.books에서 _id에 해당하는 책 정보 가져오기
     """
-    return ""
+    return db.books.find_one({"_id": ObjectId(_id)})
 
 
 def book_find():
