@@ -1,72 +1,11 @@
-
-
-
 $(document).ready(function () {
+    bookReview_list()
 
-    console.log(location.pathname)
+    $("#reviewbtn").click(function (){
+        $("#commentshow").toggleClass("hidden");
+    })
 
-})
-
-
-
-
-
-// function bookSearch_list() {
-//     $(".tile.is-ancestor").empty()
-//     $.ajax({
-//         type: "GET",
-//         url: "/book/list/",
-//         data: {},
-//         success: function (response) {
-//             console.log(response)
-//             let booklist = response["books"]
-//             for (let i = 0; i < booklist.length; i++) {
-//                 let author = booklist[i]["author"]
-//                 let image = booklist[i]["image"]
-//                 let title = booklist[i]["title"]
-//                 let pubdate = booklist[i]["pubdate"]
-//                 let publisher = booklist[i]["publisher"]
-//                 let discount = booklist[i]["discount"]
-//                 let description = booklist[i]["description"]
-
-//                 let temp_html = `<div class="tile is-4">
-//                                             <div class="tile is-parent">
-//                                                 <article class="tile is-child notification">
-//                                                     <figure class="image">
-//                                                         <img class="is-rounded"
-//                                                              src="${image}">
-//                                                     </figure>
-//                                                 </article>
-//                                             </div>
-//                                         </div>
-
-//                                         <div class="tile is-parent">
-//                                             <article class="tile is-child notification ">
-//                                                 <div class="book_content">
-//                                                     <p class="title">${title}</p>
-//                                                     <p class="subtitle">${author}</p>
-//                                                     <hr>
-//                                                     <div class="content">
-//                                                         <p>${pubdate}</p>
-//                                                         <p>${publisher}</p>
-//                                                         <p>${discount}</p>
-//                                                         <p>${description}</p>
-//                                                     </div>
-//                                                     <div class="buttons">
-//                                                         <button class="button is-primary is-light">Review</button>
-//                                                     </div>
-//                                                 </div>
-//                                             </article>
-//                                         </div>`
-//                 $(".tile.is-ancestor").append(temp_html)
-//             }
-//         }
-//     })
-// }
-
-
-
-
+});
 
 function reviewPostModal() {
     console.log("review modal")
@@ -100,6 +39,66 @@ function reviewPostSubmit() {
         },
         error: () => {
             alert("로그인을 먼저 해주세요")
+        }
+    })
+}
+
+function bookReview_list() {
+    $.ajax({
+        type: 'GET',
+        url: '/book/review',
+        data: {},
+        success: function (response) {
+            let reviews = response["reviews"]
+            for(let i=0; i<reviews.length;i++){
+                let username = reviews[i]["username"]
+                let rating = reviews[i]["rating"]
+                let time = reviews[i]["time"]
+                let content = reviews[i]["content"]
+                let temp_html = `<article class="media">
+                                            <figure class="media-left">
+                                                <p class="image is-64x64">
+                                                  <img src="https://bulma.io/images/placeholders/128x128.png">
+                                                </p>
+                                              </figure>
+                                                        
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <p>
+                                                    <strong>${username}</strong> <small>@${username}</small> <small>${time}</small>
+                                                    <br>
+                                                    ${content}
+                                                </p>
+                                            </div>
+                        
+                                            <nav class="level is-mobile">
+                                                <div class="level-left">
+                                                    <a class="level-item" aria-label="reply">
+                                                        <span class="icon is-small">
+                                                          <i class="fas fa-reply" aria-hidden="true"></i>
+                                                        </span>
+                                                                        </a>
+                                                                        <a class="level-item" aria-label="retweet">
+                                                        <span class="icon is-small">
+                                                          <i class="fas fa-retweet" aria-hidden="true"></i>
+                                                        </span>
+                                                                        </a>
+                                                                        <a class="level-item" aria-label="like">
+                                                        <span class="icon is-small">
+                                                          <i class="fas fa-heart" aria-hidden="true"></i>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </nav>
+                                            </div>
+                                          <div class="media-right">
+                                            <button class="delete"></button>
+                                          </div>
+                                        </div>
+                                    </article>`
+                $("#review_commnetbox").append(temp_html)
+            }
+
         }
     })
 }

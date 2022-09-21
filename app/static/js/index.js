@@ -3,17 +3,15 @@ $(document).ready(function () {
     book_list()
 })
 
-
 function book_list() {
     $.ajax({
-
         type: 'GET',
-        url: '/book/list',
+        url: '/list',
         data: {},
         success: function (response) {
 
-            let lists = response["books"]
-            for(let i=0; i< lists.length;i++){
+            let lists = response["b_list"]
+            for (let i = 0; i < lists.length; i++) {
                 let image = lists[i]['image']
                 let title = lists[i]['title']
                 let author = lists[i]['author']
@@ -32,4 +30,6 @@ function book_list() {
         }
     });
 }
+
+
 

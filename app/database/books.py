@@ -24,7 +24,7 @@ def book_find():
     """
     db.books에서 전체 책 리스트 가져오기
     """
-    return ""
+    return db.books.find({})
 
 
 def book_insertone(doc):

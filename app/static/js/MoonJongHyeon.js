@@ -1,23 +1,13 @@
 // <!-- 로그인 페이지 (signin.html) 함수 -->
 
-
-function test() {
-    console.log("!!!")
-
-    // fetch("/user/sign_in")
-    $('#section-post').load("/user/sign_in", complete=activateModal )
-}
-
-
 function activateModal() {
     $("#modal-post").addClass("is-active")
 }
 
 function signout() {
-    $.removeCookie("mytoken", { path: '/' });
-    location.reload();
+    $.removeCookie('mytoken', {path: '/'});
+    window.location.replace("/")
 }
-
 
 function siginModalPop() {
     $('#section-post').load('/user/sign_in', complete=activateModal )

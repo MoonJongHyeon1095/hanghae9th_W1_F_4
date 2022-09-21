@@ -29,8 +29,6 @@ def bookReview_list():
     return jsonify({"books":books})
 
 
-
-
 # 리뷰 작성창
 @book_bp.route("/postreview")
 def book_review_modal():
