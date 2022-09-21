@@ -1,0 +1,52 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    max-height: 260px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header > .logo {
+
+    flex: 1;
+    cursor: pointer;
+}
+
+.header > .logo > a > img {
+    height: 250px;
+    display: block;
+    margin: auto;
+}
+
+.header > .title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header > .title > p {
+    margin: auto auto auto auto;
+
+    /* font-family: 'East Sea Dokdo', cursive; */
+    /* font-size: 6em; */
+    color: black;
+    font-family: 'Dokdo', cursive;
+    font-size: 5em;
+    text-align: center;
+}
+
+.header > .title > .navmenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.header > .title > ul li {
+    margin-left: 20px;
+    color: #3273dc;
+}
+
+.header > .title > ul li:hover {
+    color: black;
+}

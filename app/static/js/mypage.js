@@ -101,15 +101,21 @@ function mypageMyLikesList() {
 }
 
 
+
 /** 프로필 수정 창 열기 */
 function mypageProfile() {
     console.log("profile modal")
 
-    $("#section-post").load("/mypage/profile", complete=activateModal);
+    // $("#section-post").load("/mypage/profile", complete=activateModal)
+
+    $("#section-post").load("/mypage/profile", (responseText, textStatus, req)=>{
+        if (textStatus === "success") $("#modal-edit").addClass("is-active")
+    });
 }
 
 /** 프로필 모달창 is-active 클래스 부여 */
 function activateModal() {
+    console.log("!!!")
     $("#modal-edit").addClass("is-active")
 }
 
@@ -142,11 +148,15 @@ function mypageProfileUpdate() {
         processData: false,
         success: (response) => {
             console.log(response);
+            $("#modal-edit").removeClass("is-active")
+            alert(response)
         }
     })
 
     return ;
 }
+
+
 
 
 /** 책 좋아요 & 해제 토글 */

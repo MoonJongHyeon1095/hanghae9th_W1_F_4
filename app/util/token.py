@@ -39,6 +39,7 @@ def token_check():
     """
     현재 세션의 로그인 토큰 유효성 확인 이후 payload 반환
     """
+    print("token check")
     token = request.cookies.get("mytoken")
     try:
         payload = jwt.decode(token, KEY, algorithms="HS256")

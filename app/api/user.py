@@ -5,18 +5,24 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, render_template, jsonify, request, session
 
+from dotenv import load_dotenv
+
 from ..util import *
 from ..config import Pymongo
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")
 db = Pymongo.db
 
+load_dotenv()
 ABC = os.environ.get("SECRET_KEY")
+
 
 # 회원가입 페이지 렌더링
 @user_bp.route("/sign_up")
 def user_signup_page():
-    return render_template('signup.html')
+    checked_token = token_check()
+    token_info = bool(checked_token)
+    return render_template('signup.html', token_info=token_info)
 
 
 # 회원가입 이메일 중복체크

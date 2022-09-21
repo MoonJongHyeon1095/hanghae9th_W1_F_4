@@ -75,7 +75,7 @@ def mypage_profile_modal():
     user_id = payload["user_id"]
     user = user_findone(user_id)
 
-    return render_template("modals/profile.html", user=user)
+    return render_template("/modals/profile.html", user=user)
 
 
 # 프로필 수정
@@ -91,11 +91,11 @@ def mypage_profile_update():
        "password": password_hash(request.form.get("password")),
        "image": request.files.get("image"),
     }
-    user_upsertone(doc)
+    user_id = user_upsertone(doc)
     print(doc)
+    print(user_id)
 
-    return ""
-
+    return "회원 정보를 수정했습니다."
 
 
 

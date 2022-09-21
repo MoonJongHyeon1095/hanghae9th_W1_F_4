@@ -13,7 +13,17 @@ function activateModal() {
     $("#modal-post").addClass("is-active")
 }
 
-function sign_in() {
+function signout() {
+    $.removeCookie("mytoken", { path: '/' });
+    location.reload();
+}
+
+
+function siginModalPop() {
+    $('#section-post').load('/user/sign_in', complete=activateModal )
+}
+
+function signinSubmit() {
     let email = $("#input-email").val()
     let password = $("#input-password").val()
 
@@ -53,58 +63,7 @@ function sign_in() {
 
 // <!-- 회원가입 페이지(signup.html) 함수 -->
 
-function is_email(asValue) {
-    const regExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    return regExp.test(asValue);
-}
-
-function is_password(asValue) {
-    const regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
-    return regExp.test(asValue);
-}
-
-function check_dup() {
-    let email = $("#input-email").val()
-    console.log(email)
-
-    // 1.공백일 때
-    if (email == "") {
-        $("#help-email").text("이메일을 입력해주세요.").removeClass("is-safe").addClass("is-danger")
-        $("#input-email").addClass("is-danger").focus()
-        return;
-    }
-
-    // 2.정규표현식 검사
-    if (!is_email(email)) {
-        $("#help-email").text("올바른 이메일 형식이 아닙니다.").removeClass("is-safe").addClass("is-danger")
-        $("#input-email").addClass("is-danger").focus()
-        return;
-    }
-
-    // 3.위 1,2번 통과시
-    $("#input-email").removeClass("is-danger")
-    $("#help-email").removeClass("is-danger").addClass("is-loading")
-    $.ajax({
-        type: "POST",
-        url: "/user/check_dup",
-        data: {
-            email_give: email
-        },
-        success: function (response) {
-
-            if (response["exists"]) {
-                $("#help-email").text("이미 가입된 이메일입니다.").removeClass("is-safe").addClass("is-danger")
-                $("#input-email").addClass("is-danger").focus()
-            } else {
-                $("#help-email").text("사용할 수 있는 이메일입니다.").removeClass("is-danger").addClass("is-success")
-                $("#input-email").removeClass("is-danger").addClass("is-success").focus()
-            }
-            $("#help-email").removeClass("is-loading")
-        }
-    });
-}
-
-function sign_up() {
+function signupSubmit() {
     let username = $('#input-username').val()
     let email = $('#input-email').val()
     let password = $('#input-password').val()
@@ -164,6 +123,57 @@ function sign_up() {
         success: function (response) {
             alert("회원가입 성공!")
             window.location.replace("/")
+        }
+    });
+}
+
+function is_email(asValue) {
+    const regExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    return regExp.test(asValue);
+}
+
+function is_password(asValue) {
+    const regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
+    return regExp.test(asValue);
+}
+
+function check_dup() {
+    let email = $("#input-email").val()
+    console.log(email)
+
+    // 1.공백일 때
+    if (email == "") {
+        $("#help-email").text("이메일을 입력해주세요.").removeClass("is-safe").addClass("is-danger")
+        $("#input-email").addClass("is-danger").focus()
+        return;
+    }
+
+    // 2.정규표현식 검사
+    if (!is_email(email)) {
+        $("#help-email").text("올바른 이메일 형식이 아닙니다.").removeClass("is-safe").addClass("is-danger")
+        $("#input-email").addClass("is-danger").focus()
+        return;
+    }
+
+    // 3.위 1,2번 통과시
+    $("#input-email").removeClass("is-danger")
+    $("#help-email").removeClass("is-danger").addClass("is-loading")
+    $.ajax({
+        type: "POST",
+        url: "/user/check_dup",
+        data: {
+            email_give: email
+        },
+        success: function (response) {
+
+            if (response["exists"]) {
+                $("#help-email").text("이미 가입된 이메일입니다.").removeClass("is-safe").addClass("is-danger")
+                $("#input-email").addClass("is-danger").focus()
+            } else {
+                $("#help-email").text("사용할 수 있는 이메일입니다.").removeClass("is-danger").addClass("is-success")
+                $("#input-email").removeClass("is-danger").addClass("is-success").focus()
+            }
+            $("#help-email").removeClass("is-loading")
         }
     });
 }

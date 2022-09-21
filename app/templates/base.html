@@ -20,14 +20,17 @@
     <!-- Bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dokdo&family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+
     <!-- custom file -->
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
-    <!-- mypage.css -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <!-- css stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}" />
 
     <!-- title -->
     <title> {% block title %} {% endblock %} </title>

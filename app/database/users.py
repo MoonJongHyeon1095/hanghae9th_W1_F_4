@@ -19,8 +19,8 @@ def user_upsertone(doc):
     """
     db.users에 사용자 등록 및 수정. 등록 혹은 수정한 사용자 _id 반환
     """
-    doc["_id"] = ObjectId(doc["_id"]) if "_id" in doc else None
-    user_id = db.users.update_one({"_id": doc["_id"]}, {"$set": doc}, upsert=True).upserted_id
+    doc["_id"] = doc["_id"] if "_id" in doc else None
+    user_id = db.users.update_one({"_id": ObjectId(doc["_id"])}, {"$set": doc}, upsert=True).upserted_id
 
     return doc["_id"] if user_id is None else user_id
 
