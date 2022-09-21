@@ -40,14 +40,16 @@
         </div>
         <ul class="menu">
             <li><a href="/mypage">마이페이지</a></li>
-            <li><a onclick="testlogin()">로그인</a></li>
-            <li><a href="/user">회원가입</a></li>
+            <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li>
+            <li><a href="/user/sign_up">회원가입</a></li>
         </ul>
     </nav>
     <div class="page">{% block content %} {% endblock %}</div>
 
     <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/MoonJongHyeon.js') }}"></script>
     <script src="{{ url_for('static', filename='js/book.js') }}"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
   </body>
 </html>
