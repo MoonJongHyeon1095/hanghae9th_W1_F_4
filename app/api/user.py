@@ -18,7 +18,7 @@ def user_signup_page():
     return render_template('signup.html')
 
 # 회원가입 이메일 중복체크
-@user_bp.route('/sign_up/check_dup', methods=['POST'])
+@user_bp.route('/check_dup', methods=['POST'])
 def check_dup():
     email_receive = request.form['email_give']
     exists = bool(db.users.find_one({"email": email_receive}))
@@ -35,7 +35,7 @@ def user_signup():
     doc = {
         "email": email_receive,  # 로그인 아이디
         "password": password_hash,  # 비밀번호
-        "username": username_receive,  # 서비스 내 표시되는 사용자의 이름
+        "username": username_receive  # 서비스 내 표시되는 사용자의 이름
 
     }
 
@@ -44,10 +44,9 @@ def user_signup():
     return jsonify({'result': 'success'})
 
 
-# 로그인 창         >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.
-@user_bp.route("/")
+@user_bp.route("/sign_in")
 def user_signin_modal():
-    return ""
+    return render_template("modals/signin.html")
 
 
 # 로그인 요청
@@ -59,10 +58,12 @@ def user_signin():
     password_receive = request.form['password_give']
 
     pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
-    result = db.users.find_one({'email': email_receive, 'password': pw_hash})
+    user = db.users.find_one({'email': email_receive, 'password': pw_hash})
 
-    if result is not None:
+    if user is not None:
         payload = {
+         'username': user["username"],
+         'user_id': str(user["_id"]),
          'email': email_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
         }

@@ -7,6 +7,7 @@
 
     <!-- Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     
     <!-- Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -39,14 +40,16 @@
         </div>
         <ul class="menu">
             <li><a href="/mypage">마이페이지</a></li>
-            <li><a onclick="">로그인</a></li>
-            <li><a href="/user">회원가입</a></li>
+            <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li>
+            <li><a href="/user/sign_up">회원가입</a></li>
         </ul>
     </nav>
     <div class="page">{% block content %} {% endblock %}</div>
 
     <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/MoonJongHyeon.js') }}"></script>
     <script src="{{ url_for('static', filename='js/book.js') }}"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
   </body>
 </html>
