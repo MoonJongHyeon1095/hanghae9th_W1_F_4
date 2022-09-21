@@ -17,66 +17,6 @@
 
     <title>detail_book</title>
 
-    <script>
-
-
-        $(document).ready(function () {
-
-        });
-
-        function bookReview_list() {
-            $(".tile.is-ancestor").empty()
-            $.ajax({
-                type: "GET",
-                url: "/book/list",
-                data: {},
-                success: function (response) {
-
-                    let booklist = response["books"]
-                    for(let i=0; i<booklist.length;i++){
-                        let author = booklist[i]["author"]
-                        let image = booklist[i]["image"]
-                        let title = booklist[i]["title"]
-                        let pubdate = booklist[i]["pubdate"]
-                        let publisher = booklist[i]["publisher"]
-                        let discount = booklist[i]["discount"]
-                        let description = booklist[i]["description"]
-
-                        let temp_html = `<div class="tile is-4">
-                                            <div class="tile is-parent">
-                                                <article class="tile is-child notification">
-                                                    <figure class="image">
-                                                        <img class="is-rounded"
-                                                             src="${image}">
-                                                    </figure>
-                                                </article>
-                                            </div>
-                                        </div>
-                                        <!--책정보-->
-                                        <div class="tile is-parent">
-                                            <article class="tile is-child notification ">
-                                                <div class="book_content">
-                                                    <p class="title">${title}</p>
-                                                    <p class="subtitle">${author}</p>
-                                                    <div class="content">
-                                                        <p>${pubdate}</p>
-                                                        <p>${publisher}</p>
-                                                        <p>${discount}</p>
-                                                        <p>${description}</p>
-                                                    </div>
-                                                    <div class="buttons">
-                                                        <button class="button is-primary is-light">Review</button>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </div>`
-                        $(".tile.is-ancestor").append(temp_html)
-                    }
-                }
-            })
-        }
-
-    </script>
 
 </head>
 
@@ -88,10 +28,10 @@
     </div>
 
     <!--검색바-->
-    <div class="search_ba">
-        <input class="input is-success" type="text" placeholder="Success input">
-        <button onclick="bookReview_list()" class="button is-primary is-light"><i class="fa fa-search"></i></button>
-    </div>
+{#    <div class="search_ba">#}
+{#        <input class="input is-success" type="text" placeholder="Success input">#}
+{#        <button onclick="bookSearch_list()" class="button is-primary is-light"><i class="fa fa-search"></i></button>#}
+{#    </div>#}
 
     <div class="tile is-ancestor">
         <!--이미지-->
@@ -100,7 +40,7 @@
                 <article class="tile is-child notification">
                     <figure class="image">
                         <img class="is-rounded"
-                             src="https://file.mk.co.kr/meet/neds/2021/04/image_readtop_2021_330747_16177500644599916.jpg">
+                             src="{{ bookView.image }}">
                     </figure>
                 </article>
             </div>
@@ -111,15 +51,14 @@
         <div class="tile is-parent">
             <article class="tile is-child notification ">
                 <div class="book_content">
-                    <p class="title">오은영의 화해 (상처받은 내면의 ‘나’와 마주하는 용기)</p>
-                    <p class="subtitle">오은영</p>
+                    <p class="title">{{ bookView.title }}</p>
+                    <p class="subtitle">{{ bookView.author }}</p>
+                    <hr/>
                     <div class="content">
-                        <p>20190110</p>
-                        <p>코리아닷컴</p>
-                        <p>14400</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus asperiores, assumenda at
-                            atque earum eius error et facere fugit iste maiores, nostrum nulla obcaecati, omnis quaerat
-                            similique voluptate voluptatem voluptates.</p>
+                        <p>{{ bookView.pubdate }}</p>
+                        <p>{{ bookView.publisher }}</p>
+                        <p>{{ bookView.discount }}</p>
+                        <p>{{ bookView.description }}</p>
                     </div>
                     <div class="buttons">
                         <button class="button is-primary is-light">Review</button>

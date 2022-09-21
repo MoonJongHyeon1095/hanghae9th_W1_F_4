@@ -12,12 +12,14 @@ def book_page():
     return render_template("book.html")
 
 # 해당 상세정보
-@book_bp.route("/detail/<keyword>")
-def book_detail(keyword):
+@book_bp.route("/view/")
+def book_detail():
     # db에서 결과 보내기
-    bookid_receive = request.args.get("bookid_give")
-    print(bookid_receive)
-    return render_template("book.html",books=keyword)
+    bookid_receive = request.args.get("book_id")
+    bookView = list(db.books.find({"isbn":bookid_receive},{"_id": False}))[0]
+    return render_template("book.html", bookView=bookView)
+
+
 
 
 # 해당 책의 리뷰 리스트 반환
@@ -26,8 +28,7 @@ def bookReview_list():
     books = list(db.books.find({},{"_id": False}))
     return jsonify({"books":books})
 
-
-# 리뷰 작성창         >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.
+# 리뷰 작성창     >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.
 @book_bp.route("/")
 def book_review_modal():
     return ""
@@ -53,7 +54,7 @@ def book_review_delete():
     #     "book_id": book_id,
     # }
     # review_deleteone(ids)
-    
+
     return ""
 
 
