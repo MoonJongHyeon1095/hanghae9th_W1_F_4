@@ -1,1 +1,45 @@
-리뷰 작성창
+<div class="modal" id="modal-edit">
+    <div class="modal-background" onclick='$("#modal-edit").removeClass("is-active")'></div>
+    <div class="modal-content">
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+
+                    <textarea class="textarea" id="review-content" placeholder="책에 대한 리뷰를 남겨주세요"></textarea>
+
+                    <div class="select">
+                        <select id="review-star">
+                          <option selected>별점</option>
+                          <option value="1">⭐</option>
+                          <option value="2">⭐⭐</option>
+                          <option value="3">⭐⭐⭐</option>
+                          <option value="4">⭐⭐⭐⭐</option>
+                          <option value="5">⭐⭐⭐⭐⭐</option>
+                        </select>
+                    </div>
+
+
+                    <nav class="level is-mobile">
+                        <div class="level-left">
+
+                        </div>
+                        <div class="level-right">
+                        <div class="field is-grouped">
+                            <p class="control">
+                                <button class="button is-link" onclick="reviewPostSubmit()">작성</button>
+                            </p>
+                            <p class="control">
+                                <button class="button" onclick='$("#modal-edit").removeClass("is-active")'>취소</button>
+                            </p>
+                        </div>
+                        </div>
+                    </nav>
+                </div>
+            </article>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"
+            onclick='$("#modal-edit").removeClass("is-active")'></button>
+</div>
+
+  

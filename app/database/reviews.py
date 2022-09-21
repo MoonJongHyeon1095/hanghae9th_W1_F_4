@@ -19,6 +19,13 @@ def review_find():
     """
     return ""
 
+def review_upsertone(doc):
+    """
+    db.reviews에 전달받은 데이터 삽입
+    """
+    id = doc["_id"] if "_id" in doc else None
+    return db.reviews.update_one({"_id": ObjectId(id)}, {"$set": doc}, upsert=True).upserted_id
+
 
 def review_deleteone(ids):
     """

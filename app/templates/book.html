@@ -1,14 +1,14 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
 
+{% block title %}detail_book{% endblock %}
 
-{% block title %} Book {% endblock %}
+{% block main %}
+<!--전체 감싸기-->
+<section class="wrap">
+    <!--배너-->
+    <!-- <div class="banner" onclick="window.location.href='/'">
+    </div> -->
 
-{% block content %}
-
-
-
-    <!--전체 감싸기-->
-    <section class="wrap">
 
         {#    <div class="search_ba">#}
         {#        <input class="input is-success" type="text" placeholder="Success input">#}
@@ -42,7 +42,7 @@
                             <p>{{ bookView.description }}</p>
                         </div>
                         <div class="buttons">
-                            <button class="button is-primary is-light" id="reviewbtn">Review</button>
+                            <button class="button is-primary is-light" onclick="reviewPostModal()">Review</button>
                         </div>
                     </div>
                 </article>

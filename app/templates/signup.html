@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
 
 {% block title %} 회원가입 페이지 {% endblock %}
 
-{% block content %}
+{% block main %}
 
-<section class="box" style="max-width: 600px; margin:auto">
+<section class="box" style="max-width: 600px; margin:20px auto auto auto">
     <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
@@ -59,7 +59,7 @@
 
     <div class="field is-grouped">
         <div class="control">
-            <button class="button is-link" onclick="sign_up()">회원가입</button>
+            <button class="button is-link" onclick="signupSubmit()">회원가입</button>
         </div>
         <div class="control">
             <button class="button is-link is-light" onclick="window.location.replace('/')">취소</button>

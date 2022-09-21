@@ -1,5 +1,8 @@
-from flask import Blueprint, request, render_template, jsonify
+from flask import Blueprint, request, render_template, jsonify, abort
+import time
+
 from ..config import Pymongo
+from ..database import *
 from ..util import *
 
 
@@ -7,47 +10,57 @@ book_bp = Blueprint("book", __name__, url_prefix="/book")
 db = Pymongo.db
 
 # 책 상세 페이지 렌더링
-@book_bp.route("/")
-def book_page():
-    checked_token = token_check()
-    token_info = bool(checked_token)
-
-    # DB에서 저장된 책 찾아서 HTML에 불러오기
-    return render_template("book.html", token_info=token_info)
-
-# 해당 상세정보
 @book_bp.route("/view/")
 def book_detail():
     # db에서 결과 보내기
+    checked_token = token_check()
+    token_info = bool(checked_token)
+    
     bookid_receive = request.args.get("book_id")
-    bookView = list(db.books.find({"isbn":bookid_receive}))[0]
-    book_id = bookView["_id"]
-    return render_template("book.html", bookView=bookView, book_id=book_id)
+    bookView = list(db.books.find({"isbn":bookid_receive},{"_id": False}))[0]
+    
+    return render_template("book.html", bookView=bookView, token_info=token_info)
 
 
 # 해당 책의 리뷰 리스트 반환
-@book_bp.route("/list", methods=["GET"])
-def book_list():
+@book_bp.route("/list")
+def bookReview_list():
     books = list(db.books.find({},{"_id": False}))
     return jsonify({"books":books})
 
 
-@book_bp.route("/review", methods=["GET"])
-def bookReview_list():
-    reviews = list(db.reviews.find({},{"_id": False}))
-    return jsonify({"reviews":reviews})
-
-
-# 리뷰 작성창     >> 모달 팝업 방식에 따라 안 쓸 수도 있어요.
-@book_bp.route("/")
+# 리뷰 작성창
+@book_bp.route("/postreview")
 def book_review_modal():
-    return ""
+    payload = token_check()
+    if payload is None:
+        abort(401)
+    return render_template("/modals/review.html")
 
 
 # 리뷰 작성
-@book_bp.route("/")
+@book_bp.route("/postreview", methods=["POST"])
 def book_review_post():
-    return ""
+    payload = token_check()
+    if payload is None:
+        abort(401)
+    
+    isbn = request.form["book_id"]
+    book = book_findone_isbn(isbn)
+
+    doc = {
+        "username": payload["username"],
+        "book_id": str(book["_id"]),
+        "content": request.form["content"],
+        "rating": int(request.form["star"]),
+        "time": int(time.time()),
+    }
+    review_id = str(review_upsertone(doc))
+
+    db.users.update_one({"username": doc["username"]}, {"$push": {"reviews": review_id}})
+    db.books.update_one({"isbn": isbn}, {"$push": {"reviews": review_id}})
+    
+    return "success"
 
 
 # 리뷰 삭제

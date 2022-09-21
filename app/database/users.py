@@ -19,8 +19,8 @@ def user_upsertone(doc):
     """
     db.users에 사용자 등록 및 수정. 등록 혹은 수정한 사용자 _id 반환
     """
-    doc["_id"] = ObjectId(doc["_id"]) if "_id" in doc else None
-    user_id = db.users.update_one({"_id": doc["_id"]}, {"$set": doc}, upsert=True).upserted_id
+    doc["_id"] = doc["_id"] if "_id" in doc else None
+    user_id = db.users.update_one({"_id": ObjectId(doc["_id"])}, {"$set": doc}, upsert=True).upserted_id
 
     return doc["_id"] if user_id is None else user_id
 
@@ -42,3 +42,16 @@ def user_update_likes(user_id, book_id):
     """
     db.books.update_one({"_id": book_id}, {"$push": {"likes": user_id}})
     db.users.update_one({"_id": user_id}, {"$push": {"likes": book_id}})
+
+
+
+
+def user_add_array():
+    users = db.users.find({})
+
+    for user in users:
+        if "likes" not in user:
+            user["likes"] = []
+        if "reviews" not in user:
+            user["reviews"] = []
+        user_upsertone(user)
