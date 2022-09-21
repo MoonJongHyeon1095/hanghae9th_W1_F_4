@@ -18,7 +18,7 @@ def user_signup_page():
     return render_template('signup.html')
 
 # 회원가입 이메일 중복체크
-@user_bp.route('/sign_up/check_dup', methods=['POST'])
+@user_bp.route('/check_dup', methods=['POST'])
 def check_dup():
     email_receive = request.form['email_give']
     exists = bool(db.users.find_one({"email": email_receive}))

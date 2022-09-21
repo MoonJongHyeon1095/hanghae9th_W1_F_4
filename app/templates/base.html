@@ -38,8 +38,8 @@
         </div>
         <ul class="menu">
             <li><a href="/mypage">마이페이지</a></li>
-            <li><a onclick="">로그인</a></li>
-            <li><a href="/user">회원가입</a></li>
+            <li><a onclick="$().load('/modals/signin.html' [activateModal(), complete] )">로그인</a></li>
+            <li><a href="/user/sign_up">회원가입</a></li>
         </ul>
     </nav>
     <div class="page">{% block content %} {% endblock %}</div>

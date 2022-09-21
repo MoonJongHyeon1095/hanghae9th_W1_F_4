@@ -83,7 +83,7 @@
             if ($("#help-email").hasClass("is-danger")) {
                 alert("이메일을 다시 확인해주세요.")
                 return;
-            } else if (!$("#help-id").hasClass("is-success")) {
+            } else if (!$("#help-email").hasClass("is-success")) {
                 alert("이메일 중복확인을 해주세요.")
                 return;
             }
@@ -130,6 +130,12 @@
 </head>
 
 <body>
+
+{% extends "base.html" %}
+
+{% block title %} HOME {% endblock %}
+
+{% block content %} 
 
 <section class="box" style="max-width: 600px; margin:auto">
     <div class="field">
