@@ -1,4 +1,4 @@
-<!-- 로그인 페이지 함수 -->
+<!-- 로그인 페이지 (signin.html) 함수 -->
 
 function activateModal() {
     $("#modal-post").addClass("is-active")
@@ -25,7 +25,7 @@ function sign_in() {
     }
     $.ajax({
         type: "POST",
-        url: "/sign_in",
+        url: "/user/sign_in",
         data: {
             email_give: email,
             password_give: password
@@ -42,7 +42,7 @@ function sign_in() {
 }
 
 
-<!-- 회원가입 페이지 함수 -->
+<!-- 회원가입 페이지(signup.html) 함수 -->
 
 function is_email(asValue) {
     const regExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;

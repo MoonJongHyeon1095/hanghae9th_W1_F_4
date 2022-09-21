@@ -62,7 +62,7 @@ def user_signin():
 
     if user is not None:
         payload = {
-         'username' : user["username"],
+         'username': user["username"],
          'user_id': str(user["_id"]),
          'email': email_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
