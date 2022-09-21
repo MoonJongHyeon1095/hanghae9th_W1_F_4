@@ -158,3 +158,9 @@ function sign_up() {
         }
     });
 }
+
+function signout() {
+    $.removeCookie('mytoken', {path: '/'});
+    window.location.replace("/")
+}
+

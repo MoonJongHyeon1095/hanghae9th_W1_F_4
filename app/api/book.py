@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify
 from ..config import Pymongo
+from ..util import *
 
 
 book_bp = Blueprint("book", __name__, url_prefix="/book")
@@ -8,8 +9,11 @@ db = Pymongo.db
 # 책 상세 페이지 렌더링
 @book_bp.route("/")
 def book_page():
+    checked_token = token_check()
+    token_info = bool(checked_token)
+
     # DB에서 저장된 책 찾아서 HTML에 불러오기
-    return render_template("book.html")
+    return render_template("book.html", token_info=token_info)
 
 # 해당 상세정보
 @book_bp.route("/view/")
