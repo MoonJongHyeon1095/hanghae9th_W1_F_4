@@ -6,6 +6,48 @@
 - Starting Assignment : https://purple-nation-d93.notion.site/99-9-F-4-4e3159d0a9204f34a4b2f9df74ed3594
 - 9기 미니 프로젝트 대시보드 : https://docs.google.com/spreadsheets/d/1AMbQhhldjrD2fnw-15f7gQFmDt0OWAyzuipKJRiaVCQ/edit#gid=222246930
 
+## API 설계
+### DB 구성
+
+users
+
+- _id : 회원 고유 아이디. (MongoDB ObjectId)
+- email : 로그인 아이디. (이메일 주소 형식 확인)
+- password : 비밀번호. (암호화하여 저장)
+- username : 서비스 내에서 표시되는 사용자 이름
+- image : 프로필 이미지 이름
+- image_data : 프로필 이미지 실제 데이터(경로)
+- reviews : 작성한 리뷰. [Arrays: review_id]
+- likes : 좋아요 누른 책. [Arrays: book_id]
+
+books
+
+- _id : 책 고유 아이디. (MongoDB ObjectId)
+- title : 책 제목
+- image : 표지 이미지
+- author : 작가
+- pubdate : 출판년도
+- publisher : 출팔사
+- discount : 판매 가격
+- description : 요약 줄거리
+- isbn : 국제표준책번호
+- likes : 좋아요. [Array: user_id]
+- reviews : 책 리뷰. [Array: review_id]
+
+reviews
+
+- _id : 리뷰 고유 아이디. (MongoDB ObjectId)
+- book_id : 리뷰가 달린 책의 고유 아이디
+- username : 리뷰를 작성한 사용자 이름
+- content : 리뷰 내용
+- rating : 별점
+- time : 작성/수정 시간. (unix time으로 저장)
+
+![Untitled](https://user-images.githubusercontent.com/109948801/191673539-dd40225c-4dd4-4b5f-ace3-f3ec3eec847a.png)
+
+
+
+
 ## Git 관리 전략
 ![git전략](https://user-images.githubusercontent.com/109948801/191664853-12f0a919-aab1-4877-9b2e-ee8025a335f1.png)
 - 각자 최신 메인을 Pull 받아 local main 에서 작업 aka N
