@@ -32,13 +32,25 @@ def book_detail():
 # 해당 책의 리뷰 리스트 반환
 @book_bp.route("/review")
 def bookReview_list():
-    # request.args[" "]를 사용하면 쿼리스트링으로 받은 데이터를 가져올 수 있어요.
+    # request.arg s[" "]를 사용하면 쿼리스트링으로 받은 데이터를 가져올 수 있어요.
+    isbn_receive = request.args.get("isbn_give")
 
-    # isbn으로 book 검색 
+    b_id = db.books.find_one({"isbn" : isbn_receive},{"_id":False})
+    # books 리뷰목록이고
+    book_review = b_id["reviews"]
+    # objectid 안이 인트값
+    print(type(book_review)) # list 형식임
+
+    result=[]
+    for r in book_review:
+        review_id = db.reviews.find_one({"_id": ObjectId(r)},{"_id":False})
+        r_id = review_id
+        result.append(r_id)
+
+    # isbn으로 book 검색
     # book["reviews"]로 리뷰 id 리스트 받기
     # 각각 리뷰id로 리뷰 데이터 받아오기
-    books = list(db.books.find({},{"_id": False}))
-    return jsonify({"books":books})
+    return jsonify({ "reviews": result })
 
 
 # DEPRECATED

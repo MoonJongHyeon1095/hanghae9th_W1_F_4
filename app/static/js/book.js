@@ -2,7 +2,7 @@
 
 /** book.html 로드되고 나서 바로 실행해야하는 함수 여기에 넣어주세요. */
 function renderBookContents() {
-    bookReview_list();
+     bookReview_list();
 
     $("#reviewbtn").click(function (){
         $("#commentshow").toggleClass("hidden");
@@ -49,24 +49,22 @@ function reviewPostSubmit() {
 function bookReview_list() {
     // location.href에 여기 필요한게 있어요
     // 그걸 받으셔서 url에 쿼리스트링의 형태로 서버에 보내주세요
+    $("#review_commnetbox").empty();
+    let isbn = location.search.split("id=")[1]
+
     $.ajax({
-        type: 'GET',
+        type:'GET',
         url: '/book/review',
-        data: {},
+        data: { isbn_give : isbn },
         success: function (response) {
+                console.log(response)
             let reviews = response["reviews"];
             for(let i=0; i<reviews.length;i++){
                 let username = reviews[i]["username"];
                 let rating = reviews[i]["rating"];
                 let time = reviews[i]["time"];
                 let content = reviews[i]["content"];
-                let temp_html = `<article class="media">
-                                            <figure class="media-left">
-                                                <p class="image is-64x64">
-                                                  <img src="https://bulma.io/images/placeholders/128x128.png">
-                                                </p>
-                                              </figure>
-                                                        
+                let temp_html = `<article class="media">                                             
                                         <div class="media-content">
                                             <div class="content">
                                                 <p>
