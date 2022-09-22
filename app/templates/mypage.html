@@ -7,7 +7,7 @@
 <div class="container">
   <div class="upper-wrapper">
       <div class="profile" id="profile-img">
-        <img class="my-image" src="{{ url_for('static', filename='/profiles/profile_default.png') }}" />
+        <img class="my-image" src="{{ url_for('static', filename=user.profile) }}" />
         <a>{{ user.username }}</a>
         <button type="button" class="btn btn-outline-secondary" onclick="mypageProfile()">프로필 수정</button>
       </div>
