@@ -24,7 +24,10 @@ function mypageMyReviewList() {
                     <div class="card-body">
                     <blockquote class="blockquote mb-0">
                         <a>${review.content}</a>
-                        <footer class="blockquote-footer"><cite title="Source Title">${review.username} (${review.time})</cite></footer>
+                        <div class="footers">
+                            <button class="delete" onclick="bookReviewDelete('${review._id}')" id="reviewDeleteButton"></button>
+                            <footer class="blockquote-footer"><cite title="Source Title">${review.username} (${review.time})</cite></footer>
+                        </div>
                     </blockquote>
                     </div>
                 </div>`;

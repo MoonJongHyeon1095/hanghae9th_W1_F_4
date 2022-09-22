@@ -53,7 +53,14 @@ function bookReviewDelete(review_id) {
         url: "/book/reviewdelete?review_id=" + review_id,
         data: {},
         success: (response)=>{
-            renderBookContents();
+            switch (PATH) {
+                case "/mypage/":
+                    renderMypageContents()
+                    break;
+                case "/book/view/":
+                    renderBookContents()
+                    break;
+            }
         },
         error: (error)=>{
             alert("작성자만 삭제할 수 있습니다.")
