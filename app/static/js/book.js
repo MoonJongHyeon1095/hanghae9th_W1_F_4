@@ -87,7 +87,7 @@ function bookReview_list() {
                 const time = reviews[i]["time"];
                 const content = reviews[i]["content"];
                 const temp_html = `<article class="media">                                             
-                                        <div class="media-content">
+                                        <div class="media-content" style="margin-top:-10px;">
                                             <div class="content">
                                                 <p>
                                                     <strong>${username}</strong> <small>@${username}</small> <small>${time}</small>
@@ -96,7 +96,7 @@ function bookReview_list() {
                                                 </p>
                                             </div>
                         
-                                            <nav class="level is-mobile">
+                                            <nav class="level is-mobile" style="max-height: 30px;margin-bottom:-5px;">
                                                 <div class="level-left">
                                                     <a class="level-item" aria-label="reply">
                                                         <span class="icon is-small">
@@ -110,8 +110,11 @@ function bookReview_list() {
                                                     </a>
                                                     <a class="level-item" aria-label="like">
                                                         <span class="icon is-small">
-                                                          <i class="fas fa-heart" aria-hidden="true"></i>
+                                                        <i class="fas fa-heart" aria-hidden="true"></i>
                                                         </span>
+                                                    </a>
+                                                    <a class="level-item" style="margin-left:15px;margin-bottom:5px;font-size:1.3em;">
+                                                        <span class="icon is-small">⭐x${rating}</span>
                                                     </a>
                                                 </div>
                                             </nav>
