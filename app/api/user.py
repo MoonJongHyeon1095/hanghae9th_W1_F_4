@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template, jsonify, request, session
-from datetime import datetime, timedelta
-import jwt
 
 from ..config import *
 from ..database import *
