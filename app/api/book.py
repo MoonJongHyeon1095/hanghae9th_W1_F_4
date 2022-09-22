@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify, abort
 import time
+from datetime import datetime
 
 from ..database import *
 from ..util import *
@@ -19,6 +20,7 @@ def book_detail():
     """
     payload = token_check()
     token_info = bool(payload)
+    print(token_info, payload)
 
     isbn = request.args.get("book_id")
     bookView = book_findone_isbn(isbn)
@@ -38,18 +40,20 @@ def bookReview_list():
     # request.arg s[" "]를 사용하면 쿼리스트링으로 받은 데이터를 가져올 수 있어요.
     isbn_receive = request.args.get("isbn_give")
 
-    b_id = db.books.find_one({"isbn" : isbn_receive},{"_id":False})
+    book = db.books.find_one({"isbn" : isbn_receive},{"_id":False})
     # books 리뷰목록이고
-    book_review = b_id["reviews"]
+    book_reviews = book["reviews"]
     # objectid 안이 인트값
-    print(type(book_review)) # list 형식임
+    print(type(book_reviews)) # list 형식임
 
     result=[]
-    for r in book_review:
-        review_id = db.reviews.find_one({"_id": ObjectId(r)},{"_id":False})
-        r_id = review_id
-        result.append(r_id)
+    for r_id in book_reviews:
+        review = db.reviews.find_one({"_id": ObjectId(r_id)})
+        review["_id"] = str(review["_id"])
+        review["time"] = str(datetime.fromtimestamp(review["time"]))
+        result.append(review)
 
+    result.reverse()
     return jsonify({ "reviews": result })
 
 
@@ -91,21 +95,25 @@ def book_review_post():
 
 
 # 리뷰 삭제
-@book_bp.route("/delete")
+@book_bp.route("/reviewdelete")
 def book_review_delete():
-    # payload = token_check()
-    # user_id = payload["user_id"]
-    # review_id = request.args.get("review_id")
-    # book_id = review_findone(review_id)["book_id"]
+    review_id = request.args.get("review_id")
+    r_username = review_findone(review_id)["username"]
+    payload = token_check()
 
-    # ids = {
-    #     "review_id": review_id,
-    #     "user_id": user_id,
-    #     "book_id": book_id,
-    # }
-    # review_deleteone(ids)
+    if payload is None or payload["username"] != r_username:
+        abort(401)
+        
+    user_id = payload["user_id"]
+    book_id = str(review_findone(review_id)["book_id"])
+    ids = {
+        "review_id": review_id,
+        "user_id": user_id,
+        "book_id": book_id,
+    }
+    review_deleteone(ids)
 
-    return ""
+    return "success"
 
 
 @book_bp.route("/likes")

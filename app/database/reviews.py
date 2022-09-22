@@ -39,6 +39,7 @@ def review_deleteone(ids):
     review_id = ids["review_id"]
     user_id = ids["user_id"]
     book_id = ids["book_id"]
-
-    db.users.update_one({"_id": user_id}, {"$pop": {"reviews": review_id}})
-    db.books.update_one({"_id": book_id}, {"$pop": {"reviews": review_id}})
+    
+    db.reviews.delete_one({"_id": ObjectId(review_id)})
+    db.users.update_one({"_id": ObjectId(user_id)}, {"$pull": {"reviews": review_id}})
+    db.books.update_one({"_id": ObjectId(book_id)}, {"$pull": {"reviews": review_id}})

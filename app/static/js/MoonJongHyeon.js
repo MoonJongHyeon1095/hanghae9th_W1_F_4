@@ -10,8 +10,8 @@ function signinModalPop() {
 }
 
 function signinSubmit() {
-    let email = $("#input-email").val()
-    let password = $("#input-password").val()
+    const email = $("#input-email").val()
+    const password = $("#input-password").val()
 
     if (email == "") {
         $("#help-email").text("아이디를 입력해주세요.")
@@ -50,10 +50,10 @@ function signinSubmit() {
 // <!-- 회원가입 페이지(signup.html) 함수 -->
 
 function signupSubmit() {
-    let username = $('#input-username').val()
-    let email = $('#input-email').val()
-    let password = $('#input-password').val()
-    let password2 = $('#input-password2').val()
+    const username = $('#input-username').val()
+    const email = $('#input-email').val()
+    const password = $('#input-password').val()
+    const password2 = $('#input-password2').val()
 
     //0.유저네임 확인
     if (username == "") {
@@ -124,7 +124,7 @@ function is_password(asValue) {
 }
 
 function check_dup() {
-    let email = $("#input-email").val()
+    const email = $("#input-email").val()
     console.log(email)
 
     // 1.공백일 때
