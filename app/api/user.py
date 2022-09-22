@@ -39,6 +39,8 @@ def user_signup():
         "username": username_receive,  # 서비스 내 표시되는 사용자의 이름
         "likes": [],
         "reviews": [],
+        "image": "",
+        "image_data": "/static/profiles/profile_default.png",
     }
 
     user_id = user_upsertone(doc)
@@ -70,8 +72,8 @@ def user_signin():
          'email': email_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
         }
-        token = jwt.encode(payload, KEY, algorithm='HS256')#.decode('utf-8')
-        # token = create_token(user)
+        token = jwt.encode(payload, KEY, algorithm='HS256').decode('utf-8')
+        token = create_token(user)
         session.clear()
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면

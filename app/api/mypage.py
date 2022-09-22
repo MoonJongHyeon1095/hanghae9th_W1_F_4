@@ -1,5 +1,8 @@
-from flask import Blueprint, render_template, jsonify, request, session, redirect
+from flask import Blueprint, render_template, jsonify, request, session, redirect, url_for
+from werkzeug.utils import secure_filename
 from datetime import datetime
+import sys
+
 from ..database import *
 from ..util import *
 
@@ -15,6 +18,8 @@ def mypage_page():
         user_id = payload["user_id"]
         user = user_findone(user_id)
         session["login"] = "true"
+
+        user["profile"] = user["image_data"].split("static")[1]
 
         return render_template("mypage.html", user=user)
     else:
@@ -81,18 +86,27 @@ def mypage_profile_modal():
 def mypage_profile_update():
     payload = token_check()
 
-    doc = {
-       "email": payload["email"],
-       "username": request.form.get("username"),
-       "password": password_hash(request.form.get("password")),
-       "image": request.files.get("image"),
-    }
+    if "image" in request.files:
+        image = request.files["image"]
+        filename = secure_filename(image.filename)
+        extension = filename.split(".")[-1]
+
+        file_path = sys.path[0]+"/app/static/profiles/"+ payload['user_id'] + "." + extension
+        image.save(file_path)
+        
+        doc = {
+            "email": payload["email"],
+            "username": request.form.get("username"),
+            "password": password_hash(request.form.get("password")),
+            "image": filename,
+            "image_data": file_path,
+        }    
     user_id = user_upsertone(doc)
 
     user = user_findone(str(user_id))
     token = create_token(user)
-
     session.clear()
+
     return jsonify({ "msg": "회원 정보를 수정했습니다.", "mytoken": token })
 
 

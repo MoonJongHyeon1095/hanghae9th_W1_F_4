@@ -19,11 +19,14 @@ def book_detail():
     """
     payload = token_check()
     token_info = bool(payload)
-    
+
     isbn = request.args.get("book_id")
     bookView = book_findone_isbn(isbn)
     bookView["_id"] = str(bookView["_id"])
-    bookView["flag"] = True if payload["user_id"] in bookView["likes"] else False
+    if payload == None:
+        bookView["flag"] = False
+    else:
+        bookView["flag"] = True if payload["user_id"] in bookView["likes"] else False
     bookView["likes"] = len(bookView["likes"])
     
     return render_template("book.html", bookView=bookView, token_info=token_info)
@@ -47,10 +50,8 @@ def bookReview_list():
         r_id = review_id
         result.append(r_id)
 
-    # isbn으로 book 검색
-    # book["reviews"]로 리뷰 id 리스트 받기
-    # 각각 리뷰id로 리뷰 데이터 받아오기
     return jsonify({ "reviews": result })
+
 
 
 # DEPRECATED
