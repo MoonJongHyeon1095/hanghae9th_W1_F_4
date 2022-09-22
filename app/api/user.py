@@ -39,6 +39,8 @@ def user_signup():
         "username": username_receive,  # 서비스 내 표시되는 사용자의 이름
         "likes": [],
         "reviews": [],
+        "image": "",
+        "image_data": "/static/profiles/profile_default.png",
     }
 
     user_id = user_upsertone(doc)
