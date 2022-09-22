@@ -32,21 +32,43 @@ function indexBookList() {
         data: {},
         success: function (response) {
             let lists = response["b_list"];
-            for (let i = 0; i < lists.length; i++) {
-                let image = lists[i]['image'];
-                let title = lists[i]['title'];
-                let author = lists[i]['author'];
-                let isbn = lists[i]["isbn"];
+            for (let i = 0; i < lists.length/2; i+=2) {
+                let image1 = lists[i]['image'];
+                let title1 = lists[i]['title'];
+                let author1 = lists[i]['author'];
+                let isbn1 = lists[i]["isbn"];
+                let image2 = lists[i+1]['image'];
+                let title2 = lists[i+1]['title'];
+                let author2 = lists[i+1]['author'];
+                let isbn2 = lists[i+1]["isbn"];
 
-                let temp_html = `<div class="tile is-parent">
+                let temp_html = `<div><div class="tile is-parent">
                                     <article class="tile is-child box">
-                                        <a href="/book/view?book_id=${isbn}"><img src="${image}"></a>
-                                        <p class="title">${title}</p>
-                                        <p class="subtitle">${author}</p>
+                                        <a href="/book/view?book_id=${isbn1}"><img src="${image1}"></a>
+                                        <p class="title">${title1}</p>
+                                        <p class="subtitle">${author1}</p>
                                     </article>
-                                    </div>
-                                <div>`;
+                                </div>
+                                
+                                <div class="tile is-parent">
+                                    <article class="tile is-child box">
+                                        <a href="/book/view?book_id=${isbn2}"><img src="${image2}"></a>
+                                        <p class="title">${title2}</p>
+                                        <p class="subtitle">${author2}</p>
+                                    </article>
+                                </div></div>
+                            `;
                 $("#list_review").append(temp_html);
+
+                // let temp_html = `<div class="tile is-parent">
+                //                     <article class="tile is-child box">
+                //                         <a href="/book/view?book_id=${isbn}"><img src="${image}"></a>
+                //                         <p class="title">${title}</p>
+                //                         <p class="subtitle">${author}</p>
+                //                     </article>
+                //                     </div>
+                //                 <div>`;
+                // $("#list_review").append(temp_html);
             }
         }
     });
