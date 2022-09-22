@@ -71,7 +71,7 @@ def user_signin():
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60)  # 로그인 1시간 유지
         }
         token = jwt.encode(payload, KEY, algorithm='HS256')#.decode('utf-8')
-        # token = create_token(user)
+        token = create_token(user)
         session.clear()
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면

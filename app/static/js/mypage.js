@@ -7,16 +7,6 @@ function renderMypageContents() {
     mypageMyLikesList();
 }
 
-function navToMypage() {
-    $.ajax({
-        type: "GET",
-        url: "/mypage/nav",
-        data: {},
-        success: (response) => {
-            console.log("success")
-        }
-    });
-}
 
 /** 마이페이지 내가 작성한 리뷰 리스트 */
 function mypageMyReviewList() {
@@ -180,4 +170,17 @@ function getInputFileName() {
             console.log(fileName);
         }
     }
+}
+
+
+// DEPRECATED
+function navToMypage() {
+    $.ajax({
+        type: "GET",
+        url: "/mypage/nav",
+        data: {},
+        success: (response) => {
+            console.log("success")
+        }
+    });
 }
