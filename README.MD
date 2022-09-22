@@ -27,7 +27,8 @@ b) 상기 엔드포인트에서  url_prefix="/user" 지정된 프리픽스 값�
 
 2. Jquery load 메서드로 로그인 창 모달 기능구현
 
-a) 잘못된 사례 : // <li><a onclick="$().load('/modals/signin.html', [activateModal(), complete] )">로그인</a></li>  //
+a) 잘못된 사례 
+<pre> <li><a onclick="$().load('/modals/signin.html', [activateModal(), complete] )">로그인</a></li>  </pre>
 
 b) load 메서드의 매개변수 형태 혼동 
 
@@ -37,12 +38,16 @@ b) load 메서드의 매개변수 형태 혼동
 
 - data와 같은 다른 매개변수를 생략하고 순서를 건너뛸 요량이면, 지정된 이름(complete) 으로 함수를 불러주어야 함 
 
-- 혹은  // $().load('url', function(){} ) // 과 같은 형태로 익명 함수 선언을 해주어야 함  
+- 혹은 아래의 형태로 익명 함수 선언을 해주어야 함
+<pre> $().load('url', function(){} ) </pre> 
 
-- 따라서 // $().load('/modals/signin.html', activateModal()) // 과 같은 함수호출은 곤란하다. 
-load 메서드의 콜백함수가 아니라, 기껏 load로 가져왔더니만 곧바로  다른 함수를 시행하라는 이상한 뜻이 되어 버리는 것이다.
+- 따라서 아래와 같은 함수호출은 곤란하다. 
+<pre> $().load('/modals/signin.html', activateModal()) </pre>
+
+- load 메서드의 콜백함수가 아니라, 기껏 load로 가져왔더니만 곧바로  다른 함수를 시행하라는 이상한 뜻이 되어 버리는 것이다.
  
-c) 해결된 형태: // <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li> //
+c) 해결된 형태
+<pre><li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li></pre>
 
 
 3. 회원가입 서버 에러  
