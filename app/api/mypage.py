@@ -19,6 +19,8 @@ def mypage_page():
         user = user_findone(user_id)
         session["login"] = "true"
 
+        user["profile"] = user["image_data"].split("static")[1]
+
         return render_template("mypage.html", user=user)
     else:
         session["login"] = "false"

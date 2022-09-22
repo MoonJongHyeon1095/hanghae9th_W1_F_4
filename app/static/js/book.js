@@ -2,7 +2,7 @@
 
 /** book.html 로드되고 나서 바로 실행해야하는 함수 여기에 넣어주세요. */
 function renderBookContents() {
-    bookReview_list();
+    // bookReview_list();
 
     $("#reviewbtn").click(function (){
         $("#commentshow").toggleClass("hidden");
