@@ -1,14 +1,4 @@
-* {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
 
-    .wrap {
-        background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
-        min-height: 100vh;
-        padding-bottom: 50px;
-    }
 
     .tile{
 
@@ -35,7 +25,10 @@
         align-items: center;
         justify-items: center;
     }
-
+    .tile.is-child.notification {
+        border-radius: 5%;
+        background: linear-gradient(90deg, ghostwhite 0%, gainsboro 100%);
+    }
     .search_ba > button{
         margin-left:10px;
     }
@@ -50,6 +43,7 @@
 
     #review_commentbox {
         width: 500px;
+        margin-bottom: 1.2rem;
     }
 
     .hidden{

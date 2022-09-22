@@ -1,27 +1,31 @@
-*   {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 
-.wrap{
+}
 
-    border: 5px solid red;
-    margin: 10px auto;
-    padding: 10px;
-
+.wrap {
+    background: linear-gradient(90deg, ghostwhite 0%, gainsboro 100%);
+    margin: 5px auto;
+    overflow-y: auto;
+    max-height: 72vh;
     max-width: 100vw;
 }
 
-.tile.is-ancestor {
-    border: 10px solid blue;
-    margin: 20px auto;
+.indexwrap{
 
+    margin: 130px auto;
     display: flex;
     flex-flow: row wrap;
-
+    justify-content: space-between;
+    align-items: center
 }
-.tile is-parent{
+
+
+
+
+.tile is-parent {
     max-width: 260px;
     max-height: 300px;
 }
@@ -31,15 +35,14 @@
     height: 285px;
 }
 
-.tile.is-child.box > a > img{
+.tile.is-child.box > a > img {
     width: 100%;
     height: 100%;
     opacity: 1;
 }
 
 
-
-.tile.is-child.box > p{
+.tile.is-child.box > p {
     display: none;
     white-space: nowrap;
     overflow: hidden;
