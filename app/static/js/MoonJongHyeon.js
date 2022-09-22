@@ -1,9 +1,14 @@
-// <!-- 로그인 페이지 (signin.html) 함수 -->
+
+
 
 function signout() {
     $.removeCookie('mytoken', {path: '/'});
     window.location.replace("/")
 }
+
+
+// <!-- 로그인 페이지 (signin.html) 함수 -->
+
 
 function signinModalPop() {
     $('#section-post').load('/user/sign_in', complete=activateModal )

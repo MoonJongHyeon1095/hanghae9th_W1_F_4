@@ -6,6 +6,7 @@
 
 <section class="box" style="max-width: 600px; margin:20px auto auto auto">
     <div class="field">
+        <!-- 사용자 이름 -->
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
             <input id="input-username" class="input" type="text" placeholder="너는 무엇이라 불리우는가?" value="">
@@ -19,6 +20,7 @@
         <p class="help is-safe" id="help-username"></p>
     </div>
 
+    <!-- 이메일 -->
     <div class="field" style="margin-top: 30px">
         <label class="label">Email</label>
         <div class="control has-icons-left has-icons-right">
@@ -37,6 +39,7 @@
         <button class="button is-safe" onclick="check_dup()">중복확인</button>
     </div>
 
+    <!-- 비밀번호 입력 -->
     <div class="field" style="margin-top: 50px">
         <label class="label">Password</label>
         <div class="control has-icons-left">
@@ -48,6 +51,7 @@
         </p>
     </div>
 
+    <!-- 비밀번호 재입력 -->
     <div class="field">
         <div class="control has-icons-left" style="width:100%">
             <input id="input-password2" class="input" type="password"
@@ -57,6 +61,7 @@
         <p id="help-password2" class="help">비밀번호를 다시 한 번 입력해주세요.</p>
     </div>
 
+    <!-- 회원가입 폼 제출 -->
     <div class="field is-grouped">
         <div class="control">
             <button class="button is-link" onclick="signupSubmit()">회원가입</button>

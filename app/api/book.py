@@ -6,18 +6,12 @@ from ..database import *
 from ..util import *
 
 
-from ..config import Pymongo
-db = Pymongo.db
-
-
 book_bp = Blueprint("book", __name__, url_prefix="/book")
 
 
+# 책 상세 페이지 렌더링
 @book_bp.route("/view/")
 def book_detail():
-    """
-    책 상세 페이지 렌더링
-    """
     payload = token_check()
     token_info = bool(payload)
     print(token_info, payload)
@@ -40,7 +34,7 @@ def bookReview_list():
     # request.arg s[" "]를 사용하면 쿼리스트링으로 받은 데이터를 가져올 수 있어요.
     isbn_receive = request.args.get("isbn_give")
 
-    book = db.books.find_one({"isbn" : isbn_receive},{"_id":False})
+    book = book_findone_isbn(isbn_receive)
     # books 리뷰목록이고
     book_reviews = book["reviews"]
     # objectid 안이 인트값
@@ -48,7 +42,7 @@ def bookReview_list():
 
     result=[]
     for r_id in book_reviews:
-        review = db.reviews.find_one({"_id": ObjectId(r_id)})
+        review = review_findone(r_id)
         review["_id"] = str(review["_id"])
         review["time"] = str(datetime.fromtimestamp(review["time"]))
         result.append(review)
@@ -59,22 +53,18 @@ def bookReview_list():
 
 
 # DEPRECATED
+# 리뷰 작성 모달 팝업
 @book_bp.route("/postreview")
 def book_review_modal():
-    """
-    리뷰 작성 모달 팝업
-    """
     payload = token_check()
     if payload is None:
         abort(401)
     return render_template("/modals/review.html")
 
 
+# 리뷰 작성
 @book_bp.route("/postreview", methods=["POST"])
 def book_review_post():
-    """
-    리뷰 작성
-    """
     payload = token_check()
     if payload is None:
         abort(401)

@@ -47,10 +47,11 @@ def user_signup():
     return jsonify({'result': 'success'})
 
 
+# 로그인 모달 창 팝업
 @user_bp.route("/sign_in")
 def user_signin_modal():
-    print("!!!")
     return render_template("modals/signin.html")
+
 
 
 # 로그인 요청

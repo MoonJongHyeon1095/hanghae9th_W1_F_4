@@ -23,6 +23,9 @@ def user_findone_email(email):
 
 
 def user_upsertone(doc):
+    """
+    db.users에 사용자 등록 및 수정하고 해당 사용자의 _id 반환
+    """
     id = db.users.update_one({"email": doc["email"]}, {"$set": doc}, upsert=True).upserted_id
     return user_findone_email(doc["email"])["_id"] if id is None else id
 

@@ -6,6 +6,7 @@ function activateModal() {
     $("#modal-pop").addClass("is-active")
 }
 
+/** 각 페이지가 로드되면 주소에 따라 하부 컨텐츠 로드 */
 $(document).ready(function () {
     switch (PATH) {
         case "/":

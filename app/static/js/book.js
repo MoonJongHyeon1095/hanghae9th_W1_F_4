@@ -1,13 +1,15 @@
 
-
+/** 상세 페이지 로드시 바로 실행해야하는 함수들 넣어주세요 */
 function renderBookContents() {
     bookReview_list();
 
-    $("#reviewbtn").click(function (){
-        $("#commentshow").toggleClass("hidden");
-    })
+    // $("#reviewbtn").click(function (){
+    //     $("#commentshow").toggleClass("hidden");
+    // })
 }
 
+// DEPRECATED
+/** 리뷰작성 모달창 */
 function reviewPostModal() {
     console.log("review modal");
 
@@ -21,6 +23,7 @@ function activateReviewModal(responseText, textStatus, req) {
     $("#modal-edit").addClass("is-active");
 }
 
+/** 리뷰 작성 제출 */
 function reviewPostSubmit() {
     console.log("post review");
 
@@ -46,6 +49,7 @@ function reviewPostSubmit() {
 }
 
 
+/** 리뷰 삭제 */
 function bookReviewDelete(review_id) {
     console.log("click")
     $.ajax({
@@ -68,9 +72,9 @@ function bookReviewDelete(review_id) {
     });
 }
 
+
+/** 상세페이지 책에 달린 리뷰 목록 요청 */
 function bookReview_list() {
-    // location.href에 여기 필요한게 있어요
-    // 그걸 받으셔서 url에 쿼리스트링의 형태로 서버에 보내주세요
     $("#review_commnetbox").empty();
     const isbn = location.search.split("id=")[1]
 
