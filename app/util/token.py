@@ -17,17 +17,13 @@ def create_token(user):
     """
     사용자 정보를 받아서 로그인 토큰 생성
     """
-    print(user)
     payload = {
         "user_id": str(user["_id"]),
         "email": user["email"],
         "username": user["username"],
         "exp": datetime.utcnow() + timedelta(seconds=60 * 60),
     }
-    print(payload)
-    token = jwt.encode(payload, KEY, algorithm="HS256")
-    
-    return token
+    return jwt.encode(payload, KEY, algorithm="HS256")#.decode('utf-8')
 
 
 def token_check():

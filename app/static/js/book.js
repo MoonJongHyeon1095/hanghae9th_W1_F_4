@@ -1,8 +1,7 @@
 
 
-/** book.html 로드되고 나서 바로 실행해야하는 함수 여기에 넣어주세요. */
 function renderBookContents() {
-     bookReview_list();
+    bookReview_list();
 
     $("#reviewbtn").click(function (){
         $("#commentshow").toggleClass("hidden");
@@ -46,26 +45,49 @@ function reviewPostSubmit() {
     });
 }
 
+
+function bookReviewDelete(review_id) {
+    console.log("click")
+    $.ajax({
+        type: "GET",
+        url: "/book/reviewdelete?review_id=" + review_id,
+        data: {},
+        success: (response)=>{
+            switch (PATH) {
+                case "/mypage/":
+                    renderMypageContents()
+                    break;
+                case "/book/view/":
+                    renderBookContents()
+                    break;
+            }
+        },
+        error: (error)=>{
+            alert("작성자만 삭제할 수 있습니다.")
+        }
+    });
+}
+
 function bookReview_list() {
     // location.href에 여기 필요한게 있어요
     // 그걸 받으셔서 url에 쿼리스트링의 형태로 서버에 보내주세요
     $("#review_commnetbox").empty();
-    let isbn = location.search.split("id=")[1]
+    const isbn = location.search.split("id=")[1]
 
     $.ajax({
         type:'GET',
         url: '/book/review',
         data: { isbn_give : isbn },
         success: function (response) {
-                console.log(response)
-            let reviews = response["reviews"];
+            const reviews = response["reviews"];
             for(let i=0; i<reviews.length;i++){
-                let username = reviews[i]["username"];
-                let rating = reviews[i]["rating"];
-                let time = reviews[i]["time"];
-                let content = reviews[i]["content"];
-                let temp_html = `<article class="media">                                             
-                                        <div class="media-content">
+                const review_id = reviews[i]["_id"];
+                const username = reviews[i]["username"];
+                const rating = reviews[i]["rating"];
+                const time = reviews[i]["time"];
+                const content = reviews[i]["content"];
+                const temp_html = `<article class="media">                                             
+                                        <div class="media-content" style="margin-top:-10px;">
                                             <div class="content">
                                                 <p>
                                                     <strong>${username}</strong> <small>@${username}</small> <small>${time}</small>
@@ -74,34 +96,37 @@ function bookReview_list() {
                                                 </p>
                                             </div>
                         
-                                            <nav class="level is-mobile">
+                                            <nav class="level is-mobile" style="max-height: 30px;margin-bottom:-5px;">
                                                 <div class="level-left">
                                                     <a class="level-item" aria-label="reply">
                                                         <span class="icon is-small">
-                                                          <i class="fas fa-reply" aria-hidden="true"></i>
+                                                            <i class="fas fa-reply" aria-hidden="true"></i>
                                                         </span>
-                                                                        </a>
-                                                                        <a class="level-item" aria-label="retweet">
+                                                    </a>
+                                                    <a class="level-item" aria-label="retweet">
                                                         <span class="icon is-small">
-                                                          <i class="fas fa-retweet" aria-hidden="true"></i>
+                                                            <i class="fas fa-retweet" aria-hidden="true"></i>
                                                         </span>
-                                                                        </a>
-                                                                        <a class="level-item" aria-label="like">
+                                                    </a>
+                                                    <a class="level-item" aria-label="like">
                                                         <span class="icon is-small">
-                                                          <i class="fas fa-heart" aria-hidden="true"></i>
+                                                        <i class="fas fa-heart" aria-hidden="true"></i>
                                                         </span>
+                                                    </a>
+                                                    <a class="level-item" style="margin-left:15px;margin-bottom:5px;font-size:1.3em;">
+                                                        <span class="icon is-small">⭐x${rating}</span>
                                                     </a>
                                                 </div>
                                             </nav>
                                             </div>
-                                          <div class="media-right">
-                                            <button class="delete"></button>
-                                          </div>
+                                            <div class="media-right">
+                                                <button class="delete" onclick="bookReviewDelete('${review_id}')" id="reviewDeleteButton"></button>
+                                            </div>
                                         </div>
                                     </article>`;
                 $("#review_commnetbox").append(temp_html);
             }
-
         }
     });
 }
+

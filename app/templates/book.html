@@ -16,46 +16,46 @@
         {#    </div>#}
 
 
-        <div class="tile is-ancestor">
-            <!--이미지-->
-            <div class="tile is-4" style="flex-direction: column;">
-                <div class="tile is-parent">
-                    <article class="tile is-child notification">
-                        <figure class="image">
-                            <img class="is-rounded"
-                                 src="{{ bookView.image }}">
-                        </figure>
-                    </article>
-                </div>
-                {% if bookView.flag == True %}
+    <div class="tile is-ancestor">
+        <!--이미지-->
+        <div class="tile is-4" style="flex-direction: column;">
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <figure class="image">
+                        <img class="is-rounded"
+                                src="{{ bookView.image }}">
+                    </figure>
+                </article>
+            </div>
+            {% if bookView.flag == True %}
                 <i class="bi bi-hand-thumbs-up-fill" style="color:rgba(255, 95, 95, 0.781);font-size: 2em;cursor:pointer"
                     id="book-thumb" onclick="bookLikesToggler('{{ bookView._id }}', '{{ bookView.flag }}')">{{ bookView.likes }}</i>
                 {% else %}
                 <i class="bi bi-hand-thumbs-up" style="color:rgba(255, 95, 95, 0.781);font-size: 2em;cursor:pointer"
                     id="book-thumb" onclick="bookLikesToggler('{{ bookView._id }}', '{{ bookView.flag }}')">{{ bookView.likes }}</i>
-                {% endif %}
-            </div>
-            <!--책정보-->
-            <div class="tile is-parent">
-                <article class="tile is-child notification ">
-                    <div class="book_content">
-                        <p class="title">{{ bookView.title }}</p>
-                        <p class="subtitle">{{ bookView.author }}</p>
-
-                        <div class="content">
-                            <p>{{ bookView.pubdate }}</p>
-                            <p>{{ bookView.publisher }}</p>
-                            <p>{{ bookView.discount }}</p>
-                            <p>{{ bookView.description }}</p>
-                        </div>
-                        <!-- <div class="buttons">
-                            <button class="button is-primary is-light" onclick="reviewPostModal()">Review</button>
-                        </div> -->
-                    </div>
-                </article>
-            </div>
+            {% endif %}
         </div>
-<section class="container is-max-widescreen">
+        <!--책정보-->
+        <div class="tile is-parent">
+            <article class="tile is-child notification ">
+                <div class="book_content">
+                    <p class="title">{{ bookView.title }}</p>
+                    <p class="subtitle">{{ bookView.author }}</p>
+
+                    <div class="content">
+                        <p>{{ bookView.pubdate }}</p>
+                        <p>{{ bookView.publisher }}</p>
+                        <p>{{ bookView.discount }}</p>
+                        <p>{{ bookView.description }}</p>
+                    </div>
+                    <!-- <div class="buttons">
+                        <button class="button is-primary is-light" onclick="reviewPostModal()">Review</button>
+                    </div> -->
+                </div>
+            </article>
+        </div>
+    </div>
+    <section class="container is-max-widescreen">
 
         <article class="media" id="commentshow">
             <figure class="media-left">
@@ -88,7 +88,7 @@
                     <div class="level-right">
                         <div class="level-item">
                             <label class="checkbox">
-                                <input type="checkbox"> Press enter to submit
+                                <input type="checkbox" /> Press enter to submit
                             </label>
                         </div>
                     </div>
@@ -100,8 +100,8 @@
             <div class="box" id="review_commnetbox">
 
             </div>
-        </section>
     </section>
+</section>
 
 {% endblock %}
 
