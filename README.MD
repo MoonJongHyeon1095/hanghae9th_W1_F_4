@@ -16,8 +16,7 @@
 - 4)git에 익숙치 못하 인원들을 위한 일종의 우회전략
 
 ## 회고
-### 로그인 및 회원가입기능
-- 로그인 및 회원가입 기능 관련 
+### 로그인 및 회원가입기능 관련
 
 1. path variable 경로 혼동 문제 
 
@@ -28,7 +27,7 @@ b) 상기 엔드포인트에서  url_prefix="/user" 지정된 프리픽스 값�
 
 2. Jquery load 메서드로 로그인 창 모달 기능구현
 
-a) 잘못된 사례 : <li><a onclick="$().load('/modals/signin.html', [activateModal(), complete] )">로그인</a></li>  
+a) 잘못된 사례 : // <li><a onclick="$().load('/modals/signin.html', [activateModal(), complete] )">로그인</a></li>  //
 
 b) load 메서드의 매개변수 형태 혼동 
 
@@ -38,12 +37,12 @@ b) load 메서드의 매개변수 형태 혼동
 
 - data와 같은 다른 매개변수를 생략하고 순서를 건너뛸 요량이면, 지정된 이름(complete) 으로 함수를 불러주어야 함 
 
-- 혹은 "$().load('url', function(){} )" 과 같은 형태로 익명 함수 선언을 해주어야 함  
+- 혹은  // $().load('url', function(){} ) // 과 같은 형태로 익명 함수 선언을 해주어야 함  
 
-- 따라서 "$().load('/modals/signin.html', activateModal())" 과 같은 함수호출은 곤란하다. 
+- 따라서 // $().load('/modals/signin.html', activateModal()) // 과 같은 함수호출은 곤란하다. 
 load 메서드의 콜백함수가 아니라, 기껏 load로 가져왔더니만 곧바로  다른 함수를 시행하라는 이상한 뜻이 되어 버리는 것이다.
  
-c) 해결된 형태: <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li>
+c) 해결된 형태: // <li><a onclick="$('#section-post').load('/user/sign_in', complete=activateModal )">로그인</a></li> //
 
 
 3. 회원가입 서버 에러  
@@ -67,9 +66,11 @@ a) 3과 4로 인해 추가된 구문들은 중요한 파일들에 포함되어 �
 b) 3은 그냥 해당 코드를 팀원들과 공유하는 것으로 해결.  
 
 ### 샘플
-- 실제로 적었던 회고와 기술 관련 정리 자료를 참고용으로 추려봄
+- 깃강의 강사의 샘플 : https://github.com/siyoungoh/til
 - 샘플 폴더 https://github.com/siyoungoh/til/tree/main/sample
 - 회고 https://github.com/siyoungoh/til/blob/main/sample/retrospective.md 
 
 -----
-TIL/회고 특강과 [핵심쏙속 Git 강의 by 오시영 튜터 -스파르타코딩클럽](https://spartacodingclub.kr/online/git) 에서 사용한 숙제 리포지토리
+항해99 9기 F반 4조 1주차 미니프로젝트 레포지토리
+
+
