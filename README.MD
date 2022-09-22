@@ -8,7 +8,7 @@
 
 ## Git 관리 전략
 ![git전략](https://user-images.githubusercontent.com/109948801/191664853-12f0a919-aab1-4877-9b2e-ee8025a335f1.png)
-- 각자 최신 메인을 Pull 받아 작업 aka N
+- 각자 최신 메인을 Pull 받아 local main 에서 작업 aka N
 - 이후 origin/main 에서 임의의 브랜치 X를 만들기 (소스트리와 같으 local 환경이 아닌, github에서!)
 - 1)N을 X에 Push
 - 2)origin/main 에서 X로 Pull -> github에서 충돌검사, 예컨대 origin/main을 지키기 위한 서스펜션
