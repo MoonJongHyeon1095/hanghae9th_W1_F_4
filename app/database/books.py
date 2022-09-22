@@ -44,8 +44,8 @@ def book_insertone(doc):
 # from selenium import webdriver
 # from time import sleep
 
-# CID = "AUuy26sTI3omaaDoltpX"
-# CSC = "2Yr8Cz0jWo"
+# CID = 
+# CSC = 
 
 # def main(url):
 #     titles = search_kyobo(url)
