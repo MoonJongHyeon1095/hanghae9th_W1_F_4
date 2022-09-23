@@ -23,7 +23,7 @@ def create_token(user):
         "username": user["username"],
         "exp": datetime.utcnow() + timedelta(seconds=60 * 60),
     }
-    return jwt.encode(payload, KEY, algorithm="HS256").decode('utf-8')
+    return jwt.encode(payload, KEY, algorithm="HS256")#.decode('utf-8')
 
 
 def token_check():
